@@ -1,9 +1,10 @@
 import Home from "./pages/Home/Home";
 import SignIn from "./pages/SignIn/SignIn";
-import {HOME_ROUTE, PROJECTS_OVERVIEW, PROJECTS_ROUTE, SIGN_IN_ROUTE, SIGN_UP_ROUTE} from "./utils/const";
+import {BLOG_ROUTE, HOME_ROUTE, PROJECTS_OVERVIEW, PROJECTS_ROUTE, SIGN_IN_ROUTE, SIGN_UP_ROUTE} from "./utils/const";
 import Projects from "./pages/Projects/Projects";
 import ProjectOverview from "./pages/Projects/ProjectOverview";
 import SignUp from "./pages/SignUp/SignUp";
+import Blog from "./pages/Blog/Blog";
 
 
 interface Route {
@@ -35,5 +36,9 @@ export const publicRoutes: PublicRoutes = [
     {
         path: PROJECTS_OVERVIEW,
         Component: ProjectOverview,
+    },
+    {
+        path: BLOG_ROUTE,
+        Component: Blog,
     },
 ];

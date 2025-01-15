@@ -1,31 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { StarIcon } from '@heroicons/react/20/solid'
-import { Radio, RadioGroup } from '@headlessui/react'
 
 const product = {
     name: 'GEEK Plus warehouse system',
     price: '🕚 In progress',
     href: '#',
     breadcrumbs: [
-        { id: 1, name: 'Nookon Web', href: '#' },
+        { id: 1, name: 'Nookon', href: '#' },
         { id: 2, name: 'Projects', href: '#' },
     ],
     images: [
         {
-            src: 'https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg',
+            src: 'https://images.unsplash.com/photo-1736847280194-a114a4108fc0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw1MXx8fGVufDB8fHx8fA%3D%3D',
             alt: 'Two each of gray, white, and black shirts laying flat.',
         },
         {
-            src: 'https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg',
+            src: 'https://images.unsplash.com/photo-1735299362091-33c94b71a758?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw1NHx8fGVufDB8fHx8fA%3D%3D',
             alt: 'Model wearing plain black basic tee.',
         },
         {
-            src: 'https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg',
+            src: 'https://plus.unsplash.com/premium_photo-1734713075209-f589491adfe1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw1N3x8fGVufDB8fHx8fA%3D%3D',
             alt: 'Model wearing plain gray basic tee.',
         },
         {
-            src: 'https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg',
+            src: 'https://plus.unsplash.com/premium_photo-1733514433474-e91aeaed25fa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw2MXx8fGVufDB8fHx8fA%3D%3D',
             alt: 'Model wearing plain white basic tee.',
         },
     ],

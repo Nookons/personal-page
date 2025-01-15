@@ -156,7 +156,7 @@ const SignUp = () => {
                                                 placeholder="Start typing a country..."
                                             />
                                             {isOpen && filteredOptions.length > 0 && (
-                                                <ul className="absolute w-full max-h-80 overflow-y-clip mt-1 bg-white border border-gray-300 rounded-md shadow-lg z-10">
+                                                <ul className="absolute w-full max-h-80 overflow-y-auto mt-1 bg-white border border-gray-300 rounded-md shadow-lg z-50">
                                                     {filteredOptions.map((option) => (
                                                         <li
                                                             key={option.cca3}

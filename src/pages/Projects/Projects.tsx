@@ -8,7 +8,7 @@ const products = [
         name: '🕚 3 days',
         href: '#',
         price: 'Test project',
-        imageSrc: 'https://thumbs.dreamstime.com/b/web-324830775.jpg',
+        imageSrc: 'https://plus.unsplash.com/premium_photo-1671117823275-f380cd9c3d4e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
     },
     {
@@ -16,7 +16,7 @@ const products = [
         name: '🕚 3 days',
         href: '#',
         price: 'Test project',
-        imageSrc: 'https://thumbs.dreamstime.com/b/web-324830775.jpg',
+        imageSrc: 'https://images.unsplash.com/photo-1736673084495-be9439760067?q=80&w=1850&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.',
     },
     {
@@ -24,7 +24,7 @@ const products = [
         name: '🕚 3 days',
         href: '#',
         price: 'Test project',
-        imageSrc: 'https://thumbs.dreamstime.com/b/web-324830775.jpg',
+        imageSrc: 'https://images.unsplash.com/photo-1736919589097-2002ffac8ea9?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
     },
     {
@@ -32,7 +32,7 @@ const products = [
         name: '🕚 3 days',
         href: '#',
         price: 'Test project',
-        imageSrc: 'https://thumbs.dreamstime.com/b/web-324830775.jpg',
+        imageSrc: 'https://plus.unsplash.com/premium_photo-1732017764595-39e4e440a84e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzM3x8fGVufDB8fHx8fA%3D%3D',
         imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
     },
     {
@@ -40,32 +40,8 @@ const products = [
         name: '🕚 3 days',
         href: '#',
         price: 'Test project',
-        imageSrc: 'https://thumbs.dreamstime.com/b/web-324830775.jpg',
+        imageSrc: 'https://images.unsplash.com/photo-1735024172267-18aac9fb3d6b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzOHx8fGVufDB8fHx8fA%3D%3D',
         imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
-    },
-    {
-        id: 6,
-        name: '🕚 3 days',
-        href: '#',
-        price: 'Test project',
-        imageSrc: 'https://thumbs.dreamstime.com/b/web-324830775.jpg',
-        imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.',
-    },
-    {
-        id: 7,
-        name: '🕚 3 days',
-        href: '#',
-        price: 'Test project',
-        imageSrc: 'https://thumbs.dreamstime.com/b/web-324830775.jpg',
-        imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
-    },
-    {
-        id: 8,
-        name: '🕚 3 days',
-        href: '#',
-        price: 'Test project',
-        imageSrc: 'https://thumbs.dreamstime.com/b/web-324830775.jpg',
-        imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
     },
 ]
 

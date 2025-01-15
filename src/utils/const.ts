@@ -7,3 +7,4 @@ export const SIGN_UP_ROUTE = "/sign-up"
 
 export const PROJECTS_ROUTE = "/projects"
 export const PROJECTS_OVERVIEW = "/projects-overview"
+export const BLOG_ROUTE = "/blog"
