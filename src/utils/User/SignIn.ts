@@ -21,12 +21,6 @@ export const userSignIn = async (email: string, password: string) => {
             }
         });
 
-        if (userSnap) {
-            const userRef = doc(db, "cities", userSnap.id)
-            await updateDoc(userRef, {
-                last_SignIn: dayjs().valueOf()
-            });
-        }
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
         message.error(errorMessage);
