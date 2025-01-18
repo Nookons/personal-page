@@ -3,8 +3,8 @@ import SignIn from "./pages/SignIn/SignIn";
 import {BLOG_ROUTE, HOME_ROUTE, PROJECTS_OVERVIEW, PROJECTS_ROUTE, SIGN_IN_ROUTE, SIGN_UP_ROUTE} from "./utils/const";
 import Projects from "./pages/Projects/Projects";
 import ProjectOverview from "./pages/Projects/ProjectOverview";
-import SignUp from "./pages/SignUp/SignUp";
 import Blog from "./pages/Blog/Blog";
+import SignUpForm from "./pages/SignUp/SignUpForm";
 
 
 interface Route {
@@ -27,7 +27,7 @@ export const publicRoutes: PublicRoutes = [
     },
     {
         path: SIGN_UP_ROUTE,
-        Component: SignUp,
+        Component: SignUpForm,
     },
     {
         path: PROJECTS_ROUTE,

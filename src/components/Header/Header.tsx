@@ -1,22 +1,25 @@
-import { useState } from 'react'
-import { Dialog, DialogPanel } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import {useState} from 'react'
+import {Dialog, DialogPanel} from '@headlessui/react'
+import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 
 import logo from '../../assets/logo.svg';
 import {useNavigate} from "react-router-dom";
 import {BLOG_ROUTE, HOME_ROUTE, PROJECTS_ROUTE, SIGN_IN_ROUTE} from "../../utils/const";
 import PopInfo from "./PopInfo";
+import {useAppSelector} from "../../hooks/storeHooks";
 
 
 const Home = () => {
     const navigate = useNavigate();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+    const {user, loading, error} = useAppSelector(state => state.user)
+
     const navigation = [
-        { name: 'My Projects', href: '#', onclick: () => navigate("")},
-        { name: 'Blog', href: '#', onclick: () => navigate("") },
-        { name: 'Features goals', href: '#', onclick: () => navigate("") },
-        { name: 'About me', href: '#', onclick: () => navigate("") },
+        {name: 'My Projects', href: '#', onclick: () => navigate("")},
+        {name: 'Blog', href: '#', onclick: () => navigate("")},
+        {name: 'Features goals', href: '#', onclick: () => navigate("")},
+        {name: 'About me', href: '#', onclick: () => navigate("")},
     ]
 
     const homeHandle = () => {
@@ -80,13 +83,20 @@ const Home = () => {
                         ))}
                     </div>
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                        <a onClick={loginHandle} className="text-sm/6 cursor-pointer font-semibold text-gray-900">
-                            Log in <span aria-hidden="true">&rarr;</span>
-                        </a>
+                        {user
+                            ?
+                            <div>
+                                <p>Hi there, {user.email}</p>
+                            </div>
+                            :
+                            <a onClick={loginHandle} className="text-sm/6 cursor-pointer font-semibold text-gray-900">
+                                Log in <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        }
                     </div>
                 </nav>
                 <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
-                    <div className="fixed inset-0 z-50"/>
+                <div className="fixed inset-0 z-50"/>
                     <DialogPanel
                         className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                         <div className="flex items-center justify-between">
@@ -121,12 +131,19 @@ const Home = () => {
                                     ))}
                                 </div>
                                 <div className="py-6">
-                                    <a
-                                        onClick={loginHandle}
-                                        className="-mx-3 cursor-pointer block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                                    >
-                                        Log in
-                                    </a>
+                                    {user
+                                        ?
+                                        <div>
+                                            <p>Hi there, {user.email}</p>
+                                        </div>
+                                        :
+                                        <a
+                                            onClick={loginHandle}
+                                            className="-mx-3 cursor-pointer block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                                        >
+                                            Log in
+                                        </a>
+                                    }
                                 </div>
                             </div>
                         </div>

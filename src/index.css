@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Оставляем шаги горизонтальными на мобильных устройствах */
+@media (max-width: 768px) {
+    .ant-steps {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row !important;
+        overflow-x: auto;  /* чтобы не было обрезано */
+    }
+
+    .ant-steps-item {
+        flex: 0 0 auto;
+    }
+}

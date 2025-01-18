@@ -11,7 +11,7 @@ const SignIn = () => {
     }
 
     return (
-        <div className="flex min-h-full flex-1 flex-col justify-center  h-screen px-6 py-12 lg:px-8">
+        <div className="flex min-h-full flex-1 flex-col justify-center  h-screen px-4 py-4 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <img
                     alt="Nookon Web"
