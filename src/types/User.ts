@@ -5,5 +5,6 @@ export interface IUser {
     last_name: string;
     password: string;
     check_password: string;
+    uid: string;
     id: string;
 }

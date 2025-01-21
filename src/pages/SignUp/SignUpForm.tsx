@@ -15,12 +15,13 @@ export interface ISignUp {
     last_name: string;
     password: string;
     check_password: string;
+    uid: string;
     id: string;
 }
 
 const SignUpForm = () => {
     const navigate = useNavigate();
-    const disptach = useAppDispatch();
+    const dispatch = useAppDispatch();
 
     const [form_data, setForm_data] = useState<ISignUp>({
         email: "",
@@ -28,6 +29,7 @@ const SignUpForm = () => {
         last_name: "",
         password: "",
         check_password: "",
+        uid: "",
         id: dayjs().valueOf().toString(),
     });
 
@@ -37,24 +39,27 @@ const SignUpForm = () => {
     };
 
     const onSubmitHandle = async () => {
-        const result = await userCreateAccount(form_data)
+        try {
+            const user = await userCreateAccount(form_data);
 
-        console.log(result);
+            // Проверяем, что user - это объект и у него есть uid
+            if (user && typeof user === "object" && "uid" in user) {
+                const updatedFormData = { ...form_data, uid: user.uid };
 
-        if (result) {
-            message.success(`Successful created new account: ${form_data.email}`);
-            setForm_data({
-                email: "",
-                first_name: "",
-                last_name: "",
-                password: "",
-                check_password: "",
-                id: dayjs().valueOf().toString(),
-            })
-            disptach(userEnter(form_data))
-            navigate(HOME_ROUTE)
+                setForm_data(updatedFormData); // Обновляем состояние с uid
+                message.success(`Successfully created new account: ${updatedFormData.email}`);
+
+                dispatch(userEnter(updatedFormData)); // Используем обновлённые данные
+                navigate(HOME_ROUTE); // Переходим на домашнюю страницу
+            } else {
+                message.error("Failed to create a new account. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error during account creation:", error);
+            message.error("An error occurred while creating the account. Please try again.");
         }
-    }
+    };
+
 
 
     return (

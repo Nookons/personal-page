@@ -1,7 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ContactPopover from "./ContactPopover";
+import Cookies from "js-cookie";
+import {message} from "antd";
+import {HOME_ROUTE} from "../../utils/const";
+import {useNavigate} from "react-router-dom";
 
 const Home = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const authToken = Cookies.get("authToken");
+        if (authToken) {
+            message.success(authToken)
+            navigate(HOME_ROUTE);
+        }
+    }, [navigate]);
 
     return (
         <div className="bg-white">
@@ -19,12 +32,13 @@ const Home = () => {
                     />
                 </div>
                 <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-                    <div className=" sm:mb-8 sm:flex sm:justify-center">
+                    <div className="sm:mb-8 sm:flex sm:justify-center">
                         <div
-                            className="relative  mb-8  rounded-full px-3 py-1 text-sm/6 text-gray-800 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                            <ContactPopover />
+                            className="relative mb-8 rounded-full px-3 py-1 text-sm/6 text-gray-800 ring-0 ring-gray-900/10 hover:ring-gray-900/20 sm:ring-1 sm:hover:ring-1">
+                            <ContactPopover/>
                         </div>
                     </div>
+
                     <div className="text-center">
                         <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
                             Welcome, to my personal page!
