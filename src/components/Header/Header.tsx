@@ -4,7 +4,13 @@ import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 
 import logo from '../../assets/logo.svg';
 import {useNavigate} from "react-router-dom";
-import {BLOG_ROUTE, HOME_ROUTE, PROJECTS_ROUTE, SIGN_IN_ROUTE} from "../../utils/const";
+import {
+    ADD_PROJECT_ROUTE,
+    BLOG_ROUTE,
+    HOME_ROUTE,
+    PROJECTS_ROUTE,
+    SIGN_IN_ROUTE
+} from "../../utils/const";
 import PopInfo from "./PopInfo";
 import {useAppSelector} from "../../hooks/storeHooks";
 
@@ -16,11 +22,16 @@ const Home = () => {
     const {user, loading, error} = useAppSelector(state => state.user)
 
     const navigation = [
-        {name: 'My Projects', href: '#', onclick: () => navigate("")},
-        {name: 'Blog', href: '#', onclick: () => navigate("")},
-        {name: 'Features goals', href: '#', onclick: () => navigate("")},
-        {name: 'About me', href: '#', onclick: () => navigate("")},
-    ]
+        { name: 'My Projects', href: '#'},
+        { name: 'Blog', href: '#'},
+        { name: 'Features goals', href: '#'},
+        { name: 'About me', href: '#'},
+
+        // Условный рендеринг для элементов "For admin"
+        ...(user && user.uid === "0TiGUsGDH6d8QR5DJrMTAmdyTFg2" ? [{ name: 'Add post', href: '#'}] : []),
+        ...(user && user.uid === "0TiGUsGDH6d8QR5DJrMTAmdyTFg2" ? [{ name: 'Add project', href: '#'}] : []),
+    ];
+
 
     const homeHandle = () => {
         navigate(HOME_ROUTE)
@@ -34,6 +45,9 @@ const Home = () => {
                 break
             case "Blog":
                 navigate(BLOG_ROUTE)
+                break
+            case "Add project":
+                navigate(ADD_PROJECT_ROUTE)
                 break
             default:
                 break

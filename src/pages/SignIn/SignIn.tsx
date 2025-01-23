@@ -3,32 +3,39 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import { SIGN_UP_ROUTE, HOME_ROUTE } from "../../utils/const";
 import MyInput from "../../components/MyInput/MyInput";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithCustomToken } from "firebase/auth";
 import { message } from "antd";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import Cookies from "js-cookie";
-import {useAppDispatch} from "../../hooks/storeHooks";
-import {IUser} from "../../types/User";
-import {userEnter} from "../../store/reducers/User";
+import { useAppDispatch } from "../../hooks/storeHooks";
+import { IUser } from "../../types/User";
+import { userEnter } from "../../store/reducers/User";
 
-const SignIn = () => {
+
+
+// Типизация состояния для данных пользователя
+interface UserData {
+    email: string;
+    password: string;
+}
+
+const SignIn: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const [userData, setUserData] = useState({
+    const [userData, setUserData] = useState<UserData>({
         email: "",
         password: "",
     });
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const authToken = Cookies.get("authToken");
         if (authToken) {
-            message.success("user already logged to system")
-            navigate(HOME_ROUTE);
+            // console.error(`User token: ${authToken}`);
         }
-    }, [navigate]);
+    }, [navigate, dispatch]);
 
     const onSignInHandle = async () => {
         setLoading(true); // Показываем индикатор загрузки
@@ -39,7 +46,6 @@ const SignIn = () => {
             const userCredential = await signInWithEmailAndPassword(auth, userData.email, userData.password);
             const user = userCredential.user;
 
-            // Проверка, что пользователь существует
             if (!user || !user.uid) {
                 throw new Error("Authentication failed: User not found");
             }
@@ -51,7 +57,7 @@ const SignIn = () => {
             Cookies.set("authToken", idToken, {
                 secure: true,
                 sameSite: "strict",
-                expires: 7, // Срок действия 7 дней
+                expires: 1, // Срок действия 1 день
             });
 
             // Загрузка данных пользователя из Firestore
@@ -66,7 +72,6 @@ const SignIn = () => {
                 dispatch(userEnter(snap)); // Сохраняем данные пользователя в store
                 navigate(HOME_ROUTE); // Перенаправляем на главную страницу
             } else {
-                // Данные пользователя не найдены
                 message.warning("No associated data found for the user.");
             }
         } catch (error) {
@@ -76,6 +81,7 @@ const SignIn = () => {
             setLoading(false); // Скрываем индикатор загрузки
         }
     };
+
 
     const onSignUpHandle = () => {
         navigate(SIGN_UP_ROUTE);
@@ -92,8 +98,20 @@ const SignIn = () => {
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <div className="space-y-6">
-                    <MyInput label="Email address" type="email" name="email" value={userData} change={setUserData} />
-                    <MyInput label="Password" type="password" name="password" value={userData} change={setUserData} />
+                    <MyInput
+                        label="Email address"
+                        type="email"
+                        name="email"
+                        value={userData}
+                        change={setUserData}
+                    />
+                    <MyInput
+                        label="Password"
+                        type="password"
+                        name="password"
+                        value={userData}
+                        change={setUserData}
+                    />
                     <button
                         onClick={onSignInHandle}
                         disabled={loading}

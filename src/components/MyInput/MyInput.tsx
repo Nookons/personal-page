@@ -5,10 +5,10 @@ interface MyInputProps<T> {
     label: string;
     placeholder?: string;
     symbol?: string;
-    type: string;
-    name: keyof T; // Ключи объекта T
-    value: T; // Сам объект
-    change: (updatedValue: T) => void; // Обновление объекта
+    type: "text" | "password" | "email" | "textarea"; // Уточнение типов
+    name: keyof T;
+    value: T;
+    change: (updatedValue: T) => void;
 }
 
 const MyInput = <T extends Record<string, any>>({
@@ -23,7 +23,7 @@ const MyInput = <T extends Record<string, any>>({
     const [isVisible, setIsVisible] = useState(false);
 
     // Обработчик изменения
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         change({ ...value, [name]: e.target.value });
     };
 
@@ -35,16 +35,33 @@ const MyInput = <T extends Record<string, any>>({
             <div className="mt-2">
                 <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                     {symbol && <div className="shrink-0 text-base text-gray-500 sm:text-sm">{symbol}</div>}
-                    <input
-                        id={String(name)}
-                        onChange={handleChange}
-                        name={String(name)}
-                        type={isVisible && type === "password" ? "text" : type}
-                        placeholder={placeholder}
-                        value={value[name] || ""}
-                        className="block w-full py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder-gray-400 focus:outline-none sm:text-sm"
-                        aria-label={label}
-                    />
+
+                    {/* Проверяем на тип поля: если это textarea, рендерим textarea */}
+                    {type === "textarea" ? (
+                        <textarea
+                            id={String(name)}
+                            onChange={handleChange}
+                            name={String(name)}
+                            placeholder={placeholder}
+                            value={value[name] || ""}
+                            rows={4}
+                            className="block w-full py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder-gray-400 focus:outline-none sm:text-sm"
+                            aria-label={label}
+                        />
+                    ) : (
+                        <input
+                            id={String(name)}
+                            onChange={handleChange}
+                            name={String(name)}
+                            type={isVisible && type === "password" ? "text" : type}
+                            placeholder={placeholder}
+                            value={value[name] || ""}
+                            className="block w-full py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder-gray-400 focus:outline-none sm:text-sm"
+                            aria-label={label}
+                        />
+                    )}
+
+                    {/* Отображение/скрытие пароля */}
                     {type === "password" && (
                         <button
                             onClick={() => setIsVisible((prev) => !prev)}
