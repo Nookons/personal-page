@@ -1,6 +1,7 @@
 import Home from "./pages/Home/Home";
 import SignIn from "./pages/SignIn/SignIn";
 import {
+    ADD_POST_ROUTE,
     ADD_PROJECT_ROUTE,
     BLOG_ROUTE,
     HOME_ROUTE,
@@ -14,6 +15,7 @@ import ProjectOverview from "./pages/Projects/ProjectOverview";
 import Blog from "./pages/Blog/Blog";
 import SignUpForm from "./pages/SignUp/SignUpForm";
 import AddProject from "./pages/AdminPanel/Project/AddProject";
+import AddPost from "./pages/AdminPanel/Post/AddPost";
 
 
 interface Route {
@@ -53,5 +55,9 @@ export const publicRoutes: PublicRoutes = [
     {
         path: ADD_PROJECT_ROUTE,
         Component: AddProject,
+    },
+    {
+        path: ADD_POST_ROUTE,
+        Component: AddPost,
     },
 ];

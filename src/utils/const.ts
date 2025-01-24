@@ -9,4 +9,6 @@ export const PROJECTS_ROUTE = "/projects"
 export const PROJECTS_OVERVIEW = "/projects-overview"
 export const BLOG_ROUTE = "/blog"
 
+// Admin Routes
 export const ADD_PROJECT_ROUTE = "/add-project"
+export const ADD_POST_ROUTE = "/add-post"

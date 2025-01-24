@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import MyInput from "../../../components/MyInput/MyInput";
 import {Button, message, Select} from 'antd';
 import {IDataProject} from "../../../types/Project/ProjectForm";
-import {addProjectAction} from "../../../utils/Posts/AddProject";
+import {addProjectAction} from "../../../utils/Project/AddProject";
 
 
 const AddProject = () => {

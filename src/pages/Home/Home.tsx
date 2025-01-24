@@ -1,20 +1,8 @@
 import React, {useEffect} from 'react';
 import ContactPopover from "./ContactPopover";
-import Cookies from "js-cookie";
-import {message} from "antd";
-import {HOME_ROUTE} from "../../utils/const";
 import {useNavigate} from "react-router-dom";
 
 const Home = () => {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        const authToken = Cookies.get("authToken");
-        if (authToken) {
-            message.success(authToken)
-            navigate(HOME_ROUTE);
-        }
-    }, [navigate]);
 
     return (
         <div className="bg-white">
