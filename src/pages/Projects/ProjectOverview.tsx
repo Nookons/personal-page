@@ -3,6 +3,8 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import { useLocation } from 'react-router-dom';
 import { useProject } from '../../hooks/useProject';
 import { RadioGroup } from '@headlessui/react';
+import {EyeInvisibleOutlined, EyeOutlined} from "@ant-design/icons";
+import {Skeleton} from "antd";
 
 const reviews = { href: '#', average: 4, totalCount: 117 };
 
@@ -14,6 +16,8 @@ const ProjectOverview = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const id = params.get("id");
+
+    const [isDescriptionFull, setIsDescriptionFull] = useState<boolean>(false);
 
     // Состояния для каждой картинки
     const [image1Error, setImage1Error] = useState(false);
@@ -31,7 +35,7 @@ const ProjectOverview = () => {
 
     // Handle loading state
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className={"min-h-screen py-24 px-4"}><Skeleton /></div>;
     }
 
     // Handle error state
@@ -44,6 +48,7 @@ const ProjectOverview = () => {
         return <div>No project found</div>;
     }
 
+
     return (
         <div className="bg-white py-16">
             <div className="pt-6">
@@ -53,7 +58,7 @@ const ProjectOverview = () => {
                         <li className="text-sm">
                             <a href={project.href} aria-current="page"
                                className="font-medium text-gray-500 hover:text-gray-600">
-                                {project.name}
+                                {project.date}
                             </a>
                         </li>
                     </ol>
@@ -152,17 +157,25 @@ const ProjectOverview = () => {
                                     {reviews.totalCount} reviews
                                 </a>
                             </div>
+                            <button
+                                type="submit"
+                                className="flex mt-4 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            >
+                                Go to page
+                            </button>
                         </div>
                     </div>
 
-                    <div
-                        className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pr-8 lg:pb-16">
-                        {/* Description and details */}
+                    <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pr-8 lg:pb-16">
                         <div>
                             <h3 className="sr-only">Description</h3>
 
                             <div className="space-y-6">
-                                <p className="text-base text-gray-900">{project.description}</p>
+                                <div onClick={() => setIsDescriptionFull(!isDescriptionFull)}
+                                     className={"bg-gray-50 cursor-pointer text-center py-1 rounded w-full"}>
+                                    {isDescriptionFull ? <EyeInvisibleOutlined/> : <EyeOutlined/>}
+                                </div>
+                                <p className={`text-base line-clamp-${isDescriptionFull ? "none" : "3"} transition text-gray-900`}>{project.description}</p>
                             </div>
                         </div>
 
@@ -184,7 +197,7 @@ const ProjectOverview = () => {
                             <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
                             <div className="mt-4 space-y-6">
-                                <p className="text-sm text-gray-600">{project.details}</p>
+                                <p className="text-sm line-clamp-5 text-gray-600">{project.details}</p>
                             </div>
                         </div>
                     </div>

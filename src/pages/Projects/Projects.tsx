@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useProjects } from "../../hooks/useProjects";
 import ProjectCard from "./ProjectCard";
 import { IProject } from "../../types/Project/Project";
+import {Alert, Skeleton} from "antd";
+import Button from "antd/es/button";
 
 const Projects = () => {
     const { projects, loading, error } = useProjects();
@@ -14,11 +16,29 @@ const Projects = () => {
     }, [projects]);
 
     if (loading) {
-        return <div className={"min-h-screen py-24 px-4"}>Loading...</div>;
+        return (
+            <div className={"min-h-screen py-24 px-4"}>
+                <Skeleton />
+            </div>
+        )
     }
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return (
+            <div className={"min-h-screen py-24 px-4"}>
+                <Alert
+                    message={<span>Something went wrong while fetch projects</span>}
+                    showIcon
+                    description={error}
+                    type="error"
+                    /*action={
+                        <Button size="small" danger>
+                            Reload page
+                        </Button>
+                    }*/
+                />
+            </div>
+        )
     }
 
     return (

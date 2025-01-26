@@ -7,6 +7,8 @@ import {DislikeOutlined, EyeInvisibleOutlined, EyeOutlined, LikeOutlined} from '
 const Post = ({post}: {post: IPost}) => {
     const [isFullView, setIsFullView] = useState<boolean>(false);
 
+    let likes_count = 1034
+
     return (
         <article key={post.id} className="flex max-w-xl flex-col items-start justify-between">
             <div className="flex flex-col gap-4 text-xs">
@@ -14,7 +16,9 @@ const Post = ({post}: {post: IPost}) => {
                       className="text-gray-500">
                     {post.date}
                     <Button type={"text"} className={"mx-1"} onClick={() => setIsFullView(!isFullView)} shape={"circle"}>{isFullView ? <EyeInvisibleOutlined /> : <EyeOutlined />}</Button>
-                    <Button type={"text"} className={"mx-1"} onClick={() => setIsFullView(!isFullView)} shape={"circle"}>{isFullView ? <DislikeOutlined /> : <LikeOutlined />}</Button>
+                    <Button type={"text"} className={"mx-1"} onClick={() => setIsFullView(!isFullView)} shape={"round"}>
+                        {isFullView ? <DislikeOutlined/> : <LikeOutlined/>} <p>{likes_count.toLocaleString()}</p>
+                    </Button>
                 </time>
                 {post.category.length > 0 &&
                     <div className={"flex flex-wrap gap-2"}>
