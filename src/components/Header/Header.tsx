@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import { Dialog, DialogPanel } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import {useEffect, useState} from 'react'
+import {Dialog, DialogPanel} from '@headlessui/react'
+import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 
 import logo from '../../assets/logo.svg'
-import { useNavigate } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import {
     ADD_POST_ROUTE,
     ADD_PROJECT_ROUTE,
@@ -12,26 +12,52 @@ import {
     PROJECTS_ROUTE,
     SIGN_IN_ROUTE,
 } from '../../utils/const'
-import { useAppSelector } from '../../hooks/storeHooks'
+import {useAppSelector} from '../../hooks/storeHooks'
+import {UpCircleOutlined} from "@ant-design/icons";
+import ToTopButton from "./ToTopButton";
 
 const Home = () => {
     const navigate = useNavigate()
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-    const { user, loading, error } = useAppSelector((state) => state.user)
+    const {user, loading, error} = useAppSelector((state) => state.user)
+
+    const [isShowButton, setIsShowButton] = useState<boolean>(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const y = window.scrollY // or document.documentElement.scrollTop
+            const header = document.getElementById('Header')
+
+            if (header) {
+                const header_height = header.offsetHeight
+                if (header_height < y) {
+                    setIsShowButton(true)
+                } else {
+                    setIsShowButton(false)
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     const navigation = [
-        { name: 'My Projects', href: '#' },
-        { name: 'Blog', href: '#' },
-        { name: 'Features goals', href: '#' },
-        { name: 'About me', href: '#' },
+        {name: 'Projects', href: '#'},
+        {name: 'Blog', href: '#'},
+        {name: 'Forum', href: '#'},
+        {name: 'About me', href: '#'},
 
         // Условный рендеринг для элементов "For admin"
         ...(user && user.uid === '0TiGUsGDH6d8QR5DJrMTAmdyTFg2'
-            ? [{ name: 'Add post', href: '#' }]
+            ? [{name: 'Add post', href: '#'}]
             : []),
         ...(user && user.uid === '0TiGUsGDH6d8QR5DJrMTAmdyTFg2'
-            ? [{ name: 'Add project', href: '#' }]
+            ? [{name: 'Add project', href: '#'}]
             : []),
     ]
 
@@ -42,7 +68,7 @@ const Home = () => {
 
     const menuHandle = (value: string) => {
         switch (value) {
-            case 'My Projects':
+            case 'Projects':
                 navigate(PROJECTS_ROUTE)
                 break
             case 'Blog':
@@ -67,12 +93,14 @@ const Home = () => {
 
     return (
         <>
-            <header className="absolute inset-x-0 top-0 z-50">
+            <ToTopButton isShowButton={isShowButton}/>
+
+            <header id={"Header"} className="absolute inset-x-0 top-0 z-50">
                 <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
                     <div className="flex lg:flex-1">
                         <a onClick={homeHandle} className="-m-1.5 p-1.5 flex justify-between items-center space-x-2">
                             <span className="sr-only">Nookon Web</span>
-                            <img alt="Nookon Web" src={logo} className="h-8 w-auto cursor-pointer" />
+                            <img alt="Nookon Web" src={logo} className="h-8 w-auto cursor-pointer"/>
                             <h3 className="font-bold text-gray-800">Nookon Web</h3>
                         </a>
                     </div>
@@ -83,7 +111,7 @@ const Home = () => {
                             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
                         >
                             <span className="sr-only">Open main menu</span>
-                            <Bars3Icon aria-hidden="true" className="size-6" />
+                            <Bars3Icon aria-hidden="true" className="size-6"/>
                         </button>
                     </div>
                     <div className="hidden lg:flex lg:gap-x-12">
@@ -123,7 +151,7 @@ const Home = () => {
                             <div className="flex items-center justify-between">
                                 <a href="#" className="-m-1.5 p-1.5">
                                     <span className="sr-only">Nookon Web</span>
-                                    <img alt="Nookon Web" src={logo} className="h-8 w-auto" />
+                                    <img alt="Nookon Web" src={logo} className="h-8 w-auto"/>
                                 </a>
                                 <button
                                     type="button"
@@ -131,7 +159,7 @@ const Home = () => {
                                     className="-m-2.5 rounded-md p-2.5 text-gray-700"
                                 >
                                     <span className="sr-only">Close menu</span>
-                                    <XMarkIcon aria-hidden="true" className="size-6" />
+                                    <XMarkIcon aria-hidden="true" className="size-6"/>
                                 </button>
                             </div>
                             <div className="mt-6 flow-root">

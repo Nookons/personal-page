@@ -2,17 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
-/* Оставляем шаги горизонтальными на мобильных устройствах */
-@media (max-width: 768px) {
-    .ant-steps {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row !important;
-        overflow-x: auto;  /* чтобы не было обрезано */
-    }
 
-    .ant-steps-item {
-        flex: 0 0 auto;
-    }
+h1, h2, h3, h4, h5, h6, p, span, a, article, strong, time, input, textarea, select, button {
+    font-family: "Noto Sans", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
 }

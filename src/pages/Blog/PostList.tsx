@@ -40,12 +40,12 @@ const PostList = () => {
 
     return (
         <div
-            className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8  border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-2"
+            className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-4 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-2"
         >
             {reversed.map((post) => (
                 <div
                     key={post.id}
-                    className="flex bg-gray-50 p-2 flex-col min-h-[200px]" // Добавляем min-height для постов
+                    style={{ gridRow: 'auto' }} // Устанавливаем автоматическое изменение строки для каждого поста
                 >
                     <Post post={post} />
                 </div>

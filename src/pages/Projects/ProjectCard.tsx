@@ -19,7 +19,7 @@ const ProjectCard = ({ project }: { project: IProject }) => {
             <img
                 src={project.image_4}
                 alt={project.name}
-                className="aspect-square max-w-full bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]"
+                className="aspect-square max-w-full bg-gray-200 object-cover xl:aspect-[7/8]"
             />
             <div className="p-4">
                 <h3 className="text-sm text-gray-700">{project.date}</h3>
