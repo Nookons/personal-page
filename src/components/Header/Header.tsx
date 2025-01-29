@@ -13,29 +13,42 @@ import {
     SIGN_IN_ROUTE,
 } from '../../utils/const'
 import {useAppSelector} from '../../hooks/storeHooks'
-import {UpCircleOutlined} from "@ant-design/icons";
 import ToTopButton from "./ToTopButton";
+
+const NavigationLinks = ({onClick}: {onClick: (value: string) => void}) => (
+    <>
+        {[
+            {name: 'Projects', href: PROJECTS_ROUTE},
+            {name: 'Blog', href: BLOG_ROUTE},
+            {name: 'Forum', href: '#'},
+            {name: 'About me', href: '#'},
+        ].map((item) => (
+            <a
+                key={item.name}
+                onClick={() => onClick(item.name)}
+                className="text-sm/6 cursor-pointer font-semibold text-gray-900"
+            >
+                {item.name}
+            </a>
+        ))}
+    </>
+);
 
 const Home = () => {
     const navigate = useNavigate()
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
     const {user, loading, error} = useAppSelector((state) => state.user)
 
     const [isShowButton, setIsShowButton] = useState<boolean>(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            const y = window.scrollY // or document.documentElement.scrollTop
+            const y = window.scrollY
             const header = document.getElementById('Header')
 
             if (header) {
                 const header_height = header.offsetHeight
-                if (header_height < y) {
-                    setIsShowButton(true)
-                } else {
-                    setIsShowButton(false)
-                }
+                setIsShowButton(y > header_height)
             }
         };
 
@@ -47,19 +60,15 @@ const Home = () => {
     }, []);
 
     const navigation = [
-        {name: 'Projects', href: '#'},
-        {name: 'Blog', href: '#'},
+        {name: 'Projects', href: PROJECTS_ROUTE},
+        {name: 'Blog', href: BLOG_ROUTE},
         {name: 'Forum', href: '#'},
         {name: 'About me', href: '#'},
-
-        // Условный рендеринг для элементов "For admin"
-        ...(user && user.uid === '0TiGUsGDH6d8QR5DJrMTAmdyTFg2'
-            ? [{name: 'Add post', href: '#'}]
-            : []),
-        ...(user && user.uid === '0TiGUsGDH6d8QR5DJrMTAmdyTFg2'
-            ? [{name: 'Add project', href: '#'}]
-            : []),
-    ]
+        ...(user?.uid === '0TiGUsGDH6d8QR5DJrMTAmdyTFg2' ? [
+            {name: 'Add post', href: ADD_POST_ROUTE},
+            {name: 'Add project', href: ADD_PROJECT_ROUTE},
+        ] : [])
+    ];
 
     const homeHandle = () => {
         navigate(HOME_ROUTE)
@@ -104,27 +113,23 @@ const Home = () => {
                             <h3 className="font-bold text-gray-800">Nookon Web</h3>
                         </a>
                     </div>
+
                     <div className="flex lg:hidden">
                         <button
                             type="button"
                             onClick={() => setMobileMenuOpen(true)}
                             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                            aria-expanded={mobileMenuOpen ? 'true' : 'false'}
                         >
                             <span className="sr-only">Open main menu</span>
                             <Bars3Icon aria-hidden="true" className="size-6"/>
                         </button>
                     </div>
+
                     <div className="hidden lg:flex lg:gap-x-12">
-                        {navigation.map((item) => (
-                            <a
-                                key={item.name}
-                                onClick={() => menuHandle(item.name)}
-                                className="text-sm/6 cursor-pointer font-semibold text-gray-900"
-                            >
-                                {item.name}
-                            </a>
-                        ))}
+                        <NavigationLinks onClick={menuHandle}/>
                     </div>
+
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                         {user ? (
                             <div>
@@ -137,6 +142,7 @@ const Home = () => {
                         )}
                     </div>
                 </nav>
+
                 <Dialog
                     open={mobileMenuOpen}
                     onClose={setMobileMenuOpen}
@@ -144,7 +150,7 @@ const Home = () => {
                 >
                     <div className="fixed inset-0 z-50">
                         <DialogPanel
-                            className={`fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 transition-transform ease-in-out duration-300 ${
+                            className={`fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 transition-transform transition-opacity ease-in-out duration-300 ${
                                 mobileMenuOpen ? 'transform-none opacity-100' : 'transform translate-x-full opacity-0'
                             }`}
                         >
@@ -162,18 +168,11 @@ const Home = () => {
                                     <XMarkIcon aria-hidden="true" className="size-6"/>
                                 </button>
                             </div>
+
                             <div className="mt-6 flow-root">
                                 <div className="-my-6 divide-y divide-gray-500/10">
-                                    <div className="space-y-2 py-6">
-                                        {navigation.map((item) => (
-                                            <a
-                                                key={item.name}
-                                                onClick={() => menuHandle(item.name)}
-                                                className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                                            >
-                                                {item.name}
-                                            </a>
-                                        ))}
+                                    <div className="space-y-2 flex flex-col gap-4 py-6">
+                                        <NavigationLinks onClick={menuHandle}/>
                                     </div>
                                     <div className="py-6">
                                         {user ? (

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
-import {useProject} from '../../hooks/useProject';
+import {useProject} from '../../../hooks/useProject';
 import {Skeleton} from "antd";
 import {RocketOutlined} from "@ant-design/icons";
-import MyHighlightElement from "../Blog/HighlightElement";
+import MyHighlightElement from "./HighlightElement";
 
 const ProjectOverview = () => {
     const location = useLocation();
@@ -12,19 +12,6 @@ const ProjectOverview = () => {
 
     const {project, loading, error} = useProject(id ? id : "");
 
-    const [isShowButton, setIsShowButton] = useState<boolean>(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const y = window.scrollY
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
 
     if (loading) {
         return <div className={"min-h-screen py-24 px-4"}><Skeleton/></div>;
@@ -47,13 +34,8 @@ const ProjectOverview = () => {
         }
     }
 
-
-
     return (
         <div className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
-
-
-
             <div
                 aria-hidden="true"
                 className="absolute inset-x-0 -top-2 -z-10 transform-gpu overflow-hidden blur-3xl s sm:-top-80"
@@ -73,7 +55,7 @@ const ProjectOverview = () => {
                     <div className="lg:pr-4">
                         <div className="lg:max-w-lg">
                             <p className="text-base/7 font-semibold text-indigo-600">{project.short_name}</p>
-                            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
+                            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-pretty text-gray-800 sm:text-5xl">
                                 {project.name}
                             </h1>
                             <p className="mt-6 text-xl/8 text-gray-700">

@@ -1,4 +1,4 @@
-import ProjectOverview from "../pages/Projects/ProjectOverview";
+import ProjectOverview from "../pages/Projects/ProjectOverview/ProjectOverview";
 
 export const HOME_ROUTE = "/"
 

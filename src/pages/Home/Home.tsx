@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import ContactPopover from "./ContactPopover";
-import {useNavigate} from "react-router-dom";
 
 const Home = () => {
 

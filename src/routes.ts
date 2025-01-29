@@ -11,7 +11,7 @@ import {
     SIGN_UP_ROUTE
 } from "./utils/const";
 import Projects from "./pages/Projects/Projects";
-import ProjectOverview from "./pages/Projects/ProjectOverview";
+import ProjectOverview from "./pages/Projects/ProjectOverview/ProjectOverview";
 import Blog from "./pages/Blog/Blog";
 import SignUpForm from "./pages/SignUp/SignUpForm";
 import AddProject from "./pages/AdminPanel/Project/AddProject";
