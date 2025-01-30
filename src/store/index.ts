@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import itemsReducer from './reducers/items';
+import postReducer from './reducers/Post';
 import userReducer from './reducers/User';
 
 const store = configureStore({
     reducer: {
-        robots: itemsReducer,
+        post: postReducer,
         user: userReducer
     }
 });

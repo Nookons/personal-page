@@ -1,27 +1,77 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {usePosts} from "../../hooks/usePost";
 import {useLocation} from "react-router-dom";
-import {LikeOutlined, MessageOutlined} from "@ant-design/icons";
-import {Skeleton} from "antd";
+import {LikeOutlined, LoadingOutlined, MessageOutlined} from "@ant-design/icons";
+import {message, Skeleton} from "antd";
 import MyInput from "../../components/MyInput/MyInput";
+import {useAppDispatch, useAppSelector} from "../../hooks/storeHooks";
+import {addPostReviewAction} from "../../utils/Post/AddPostReview";
+import PostReview from "./PostReview";
+import {addReview, setPost} from "../../store/reducers/Post";
+import {IPostReview} from "../../types/Post/Post";
+import PostStats from "./PostStats";
 
 const stats = [
-    { id: 1, name: 'Transactions every 24 hours', value: '44 million' },
-    { id: 2, name: 'Assets under holding', value: '$119 trillion' },
-    { id: 3, name: 'New users annually', value: '46,000' },
+    {id: 1, name: 'Transactions every 24 hours', value: '44 million'},
+    {id: 2, name: 'Assets under holding', value: '$119 trillion'},
+    {id: 3, name: 'New users annually', value: '46,000'},
 ]
 
 const PostOverview = () => {
+    const dispatch = useAppDispatch();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const id = params.get("postId");
 
+    const user = useAppSelector(state => state.user.user)
+
     const {post, loading, error} = usePosts(id ? id : "")
 
-    const [review, setReview] = useState<string | any>("");
+    useEffect(() => {
+        if (post) {
+            dispatch(setPost(post))
+        }
+    }, [post]);
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const [review, setReview] = useState<any>({
+        body: ""
+    });
+
+    const onAddReviewHandle = async () => {
+        try {
+            if (!user) {
+                throw new Error("You must be logged in to add a review");
+            }
+            if (review.body.trim().length < 3) {
+                throw new Error("Your review must have a minimum of 3 characters");
+            }
+            if (!id) {
+                throw new Error("Invalid post ID");
+            }
+
+            setIsLoading(true);
+            const result = await addPostReviewAction({ user, review, id });
+
+            if (!result) {
+                throw new Error("Failed to add review");
+            }
+
+            dispatch(addReview(result as IPostReview))
+            setReview((prev: { body: string }) => ({ ...prev, body: "" }));
+            message.success("Review added successfully!");
+
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            message.error(errorMessage);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
-        <>
+        <div className={"grid min-h-screen grid-cols-1 lg:grid-cols-2"}>
             <div
                 aria-hidden="true"
                 className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -35,57 +85,46 @@ const PostOverview = () => {
                 />
             </div>
 
-            <div className="relative max-w-screen-md m-auto min-h-screen isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
+            <div
+                className="relative max-w-screen-sm m-auto  isolate overflow-hidden px-6 pt-24 sm:py-32 lg:overflow-visible lg:px-0">
 
                 {loading
-                    ? <><Skeleton className={"my-4"} /> <Skeleton className={"my-4"} /></>
+                    ? <><Skeleton className={"my-4"}/> <Skeleton className={"my-4"}/></>
                     :
                     <>
                         <h1 className="my-4 text-3xl font-semibold tracking-tight text-pretty text-gray-800 sm:text-5xl">
                             {post?.title}
                         </h1>
-                        <p className={"max-w-xl text-base/7 text-gray-700 lg:max-w-lg"}>
+                        <p className={"text-base/7 my-8 text-gray-700"}>
                             {post?.description}
                         </p>
                     </>
                 }
-                <div className="w-full border rounded my-2 grid grid-cols-2">
-                    <div className={"flex gap-2 border-r py-2 px-4 justify-center align-middle"}>
-                        <div className={"w-full"}>
-                            <div className={"flex justify-between"}>
-                            <span className={"max-w-xl text-base/7 text-gray-500 lg:max-w-lg"}>Likes</span>
-                                <span className={"max-w-xl text-base/7 text-gray-700 lg:max-w-lg"}><LikeOutlined/></span>
-                            </div>
-                            {loading
-                                ? <Skeleton.Button/>
-                                : <h6 className={"max-w-xl text-base/7 font-semibold text-gray-700 lg:max-w-lg"}>1,324</h6>
-                            }
-                        </div>
-                    </div>
-                    <div className={"flex gap-2 py-2 px-4 justify-center align-middle"}>
-                        <div className={"w-full"}>
-                            <div className={"flex justify-between"}>
-                                <span className={"max-w-xl text-base/7 text-gray-500 lg:max-w-lg"}>Reviews</span>
-                                <span className={"max-w-xl text-base/7 text-gray-700 lg:max-w-lg"}><MessageOutlined/></span>
-                            </div>
-                            {loading
-                                ? <Skeleton.Button/>
-                                : <h6 className={"max-w-xl text-base/7 font-semibold text-gray-700 lg:max-w-lg"}>214</h6>
-                            }
-                        </div>
-                    </div>
-                </div>
 
+                <PostStats />
+            </div>
 
-                <div className={"relative mt-8"}>
-                    <MyInput label={"Add your comment"} type={"textarea"} name={'review'} value={review} change={setReview} />
-                    <button className={"bg-indigo-600 text-white text-sm py-1 px-2 absolute bottom-2 right-2 rounded"}>
-                        Post
+            <div className={"relative mt-8 px-6 pb-8 lg:py-24"}>
+                <div className={"relative"}>
+                    <MyInput
+                        label={"Add your comment"}
+                        type={"textarea"}
+                        name={'body'}
+                        value={review}
+                        change={setReview}
+                    />
+                    <button
+                        onClick={onAddReviewHandle}
+                        disabled={isLoading}
+                        className={`${isLoading ? "bg-gray-400" : "bg-indigo-600 "} text-white text-sm py-1 px-2 absolute bottom-2 left-2 rounded`}
+                    >
+                       {isLoading ? <span><LoadingOutlined className={"mr-2"} />Posting...</span> : "Post"}
                     </button>
                 </div>
 
+                {post && <PostReview />}
             </div>
-        </>
+        </div>
     );
 };
 
