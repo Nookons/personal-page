@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IPost, IPostReview } from "../../types/Post/Post";
+import {IUser} from "../../types/User";
 
 type ItemsState = {
     post: IPost | null;
@@ -17,6 +18,21 @@ const postSlice = createSlice({
     name: 'post',
     initialState,
     reducers: {
+        // Добавление комментария
+        addLike: (state, action: PayloadAction<IUser>) => {
+            if (state.post) {
+                state.post.likes_users.push(action.payload.uid);
+                state.post.likes = state.post.likes + 1;
+            }
+        },
+        // Добавление комментария
+        removeLike: (state, action: PayloadAction<IUser>) => {
+            if (state.post) {
+                state.post.likes_users = state.post.likes_users.filter((user) => user !== action.payload.uid);
+                state.post.likes = state.post.likes - 1;
+            }
+        },
+
         // Добавление комментария
         addReview: (state, action: PayloadAction<IPostReview>) => {
             if (state.post) {
@@ -46,6 +62,8 @@ const postSlice = createSlice({
 });
 
 export const {
+    addLike,
+    removeLike,
     addReview,
     deleteComment,
     setPost,

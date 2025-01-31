@@ -14,6 +14,7 @@ export interface IPost {
     href: string;
     description: string;
     likes: number;
+    likes_users: string[];
     date: string;
     comments: IPostReview[];
     timeStamp: number;

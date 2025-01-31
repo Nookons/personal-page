@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
+import Button from "antd/es/button";
 import {HeartOutlined, LikeOutlined, LoadingOutlined, MessageOutlined} from "@ant-design/icons";
 import {message, Skeleton} from "antd";
-import {useAppDispatch, useAppSelector} from "../../hooks/storeHooks";
-import Button from "antd/es/button";
-import {addPostLikeAction, removePostLikeAction} from "../../utils/Post/AddLike";
-import {addLike, removeLike} from "../../store/reducers/Post";
+import {useAppDispatch, useAppSelector} from "../../../hooks/storeHooks";
+import {addPostLikeAction, removePostLikeAction} from "../../../utils/Post/AddLike";
+import {addLike, removeLike} from "../../../store/reducers/Post";
 
-const PostStats = () => {
+const ProjectStats = () => {
     const dispatch = useAppDispatch();
     const user = useAppSelector(state => state.user.user)
     const post = useAppSelector(state => state.post.post)
@@ -100,4 +100,4 @@ const PostStats = () => {
     );
 };
 
-export default PostStats;
+export default ProjectStats;

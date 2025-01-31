@@ -44,7 +44,7 @@ const Post = ({ post }: { post: IPost }) => {
                         onClick={toggleLike}
                         shape="round"
                     >
-                        <p>{likes_count.toLocaleString()}</p>
+                        <p>{post.likes.toLocaleString()}</p>
                         {isLiked ? <DislikeOutlined /> : <LikeOutlined />}
                     </Button>
                     {post.description.length > 450 &&

@@ -12,6 +12,7 @@ export const addPostAction = async (post_data: IPostForm) => {
             id: post_id,
             comments: [],
             likes: 0,
+            likes_users: [],
             date: dayjs().format("dddd, MMMM DD, YYYY [at] HH:mm:ss"),
             timeStamp: dayjs().valueOf(),
         });

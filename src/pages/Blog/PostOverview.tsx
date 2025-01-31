@@ -86,12 +86,13 @@ const PostOverview = () => {
             </div>
 
             <div
-                className="relative max-w-screen-sm m-auto  isolate overflow-hidden px-6 pt-24 sm:py-32 lg:overflow-visible lg:px-0">
-
+                className="relative max-w-screen-sm m-auto  isolate overflow-hidden px-6 pt-24 sm:py-32 lg:overflow-visible lg:px-0"
+            >
                 {loading
                     ? <><Skeleton className={"my-4"}/> <Skeleton className={"my-4"}/></>
                     :
                     <>
+                        <PostStats />
                         <h1 className="my-4 text-3xl font-semibold tracking-tight text-pretty text-gray-800 sm:text-5xl">
                             {post?.title}
                         </h1>
@@ -100,8 +101,6 @@ const PostOverview = () => {
                         </p>
                     </>
                 }
-
-                <PostStats />
             </div>
 
             <div className={"relative mt-8 px-6 pb-8 lg:py-24"}>

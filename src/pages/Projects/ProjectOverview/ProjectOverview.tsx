@@ -4,6 +4,8 @@ import {useProject} from '../../../hooks/useProject';
 import {Skeleton} from "antd";
 import {RocketOutlined} from "@ant-design/icons";
 import MyHighlightElement from "./HighlightElement";
+import ProjectStats from "./ProjectStats";
+import ProjectReviews from "./ProjectReviews";
 
 const ProjectOverview = () => {
     const location = useLocation();
@@ -54,6 +56,10 @@ const ProjectOverview = () => {
                     className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                     <div className="lg:pr-4">
                         <div className="lg:max-w-lg">
+                            <div className={"mb-4"}>
+                                <ProjectStats />
+                            </div>
+
                             <p className="text-base/7 font-semibold text-indigo-600">{project.short_name}</p>
                             <h1 className="mt-2 text-3xl font-semibold tracking-tight text-pretty text-gray-800 sm:text-5xl">
                                 {project.name}
@@ -88,9 +94,9 @@ const ProjectOverview = () => {
                                 {project.description}
                             </p>
                             <ul role="list" className="mt-8 space-y-8 text-gray-600">
-                                {project.highlights.map(highlight =>{
+                                {project.highlights.map(highlight => {
                                     return (
-                                        <MyHighlightElement highlight={highlight} />
+                                        <MyHighlightElement highlight={highlight}/>
                                     )
                                 })}
                             </ul>
@@ -103,6 +109,9 @@ const ProjectOverview = () => {
                             <p className="mt-6">
                                 {project.details}
                             </p>
+                        </div>
+                        <div className={"mt-8"}>
+                            <ProjectReviews/>
                         </div>
                     </div>
                 </div>
