@@ -11,3 +11,14 @@ h1, h2, h3, h4, h5, h6, p, span, a, article, strong, time, input, textarea, sele
     font-style: normal;
     font-variation-settings: "wdth" 100;
 }
+
+@keyframes gradient-x {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-x {
+    background-size: 200% 200%;
+    animation: gradient-x 15s ease infinite;
+}
