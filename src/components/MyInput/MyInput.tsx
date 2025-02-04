@@ -1,5 +1,6 @@
 import React, { FC, useState, ChangeEvent } from "react";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
+import useTheme from "../../hooks/Theme/useThemeType";
 
 interface MyInputProps<T> {
     label: string;
@@ -21,6 +22,7 @@ const MyInput = <T extends Record<string, any>>({
                                                     change,
                                                 }: MyInputProps<T>) => {
     const [isVisible, setIsVisible] = useState(false);
+    const { theme, toggleTheme } = useTheme();  // Получаем тему и функцию для её переключения
 
     // Обработчик изменения
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,12 +31,12 @@ const MyInput = <T extends Record<string, any>>({
 
     return (
         <div>
-            <label htmlFor={String(name)} className="block text-sm font-medium text-gray-900">
+            <label htmlFor={String(name)} className="block text-sm font-medium">
                 {label}
             </label>
             <div className="mt-2">
-                <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                    {symbol && <div className="shrink-0 text-base text-gray-500 sm:text-sm">{symbol}</div>}
+                <div className={`flex ${theme.second_bg_color} items-center rounded-md pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600`}>
+                    {symbol && <div className="shrink-0 text-base sm:text-sm">{symbol}</div>}
 
                     {/* Проверяем на тип поля: если это textarea, рендерим textarea */}
                     {type === "textarea" ? (
@@ -45,7 +47,7 @@ const MyInput = <T extends Record<string, any>>({
                             placeholder={placeholder}
                             value={value[name] || ""}
                             rows={4}
-                            className="block w-full py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder-gray-400 focus:outline-none sm:text-sm"
+                            className={`block ${theme.second_bg_color} ${theme.second_text_color} w-full py-1.5 pl-1 pr-3 text-base placeholder-gray-400 focus:outline-none sm:text-sm`}
                             aria-label={label}
                         />
                     ) : (
@@ -56,7 +58,7 @@ const MyInput = <T extends Record<string, any>>({
                             type={isVisible && type === "password" ? "text" : type}
                             placeholder={placeholder}
                             value={value[name] || ""}
-                            className="block w-full py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder-gray-400 focus:outline-none sm:text-sm"
+                            className={`block ${theme.second_bg_color} ${theme.second_text_color} w-full py-1.5 pl-1 pr-3 text-base placeholder-gray-400 focus:outline-none sm:text-sm`}
                             aria-label={label}
                         />
                     )}
@@ -66,7 +68,7 @@ const MyInput = <T extends Record<string, any>>({
                         <button
                             onClick={() => setIsVisible((prev) => !prev)}
                             type="button"
-                            className="px-2 text-gray-900"
+                            className="px-2"
                             aria-pressed={isVisible}
                             aria-label="Toggle password visibility"
                         >

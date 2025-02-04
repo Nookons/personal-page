@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import postReducer from './reducers/Post';
+import projectReducer from './reducers/Project';
 import userReducer from './reducers/User';
 
 const store = configureStore({
     reducer: {
         post: postReducer,
+        project: projectReducer,
         user: userReducer
     }
 });

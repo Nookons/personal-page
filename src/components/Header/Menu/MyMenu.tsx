@@ -9,10 +9,10 @@ import {
 } from "../../../utils/const";
 import {useAppSelector} from "../../../hooks/storeHooks";
 import {useNavigate} from "react-router-dom";
-import {useTheme} from "../../../hooks/Theme/useThemeType";
 import {LoginOutlined, MenuOutlined, MoonOutlined, SunOutlined} from "@ant-design/icons";
-import MobileMenu from "../MobileMenu";
+import MobileMenu from "./MobileMenu";
 import {Form, Switch} from "antd";
+import useTheme from '../../../hooks/Theme/useThemeType';
 
 const ADMIN_UID = '0TiGUsGDH6d8QR5DJrMTAmdyTFg2';
 
@@ -72,13 +72,13 @@ const MyMenu = () => {
             {/* Основная навигация для десктопов */}
             <nav className="hidden sm:flex items-center gap-4">
                 {baseNavigation.map((navItem: NavItem) => (
-                    <button onClick={() => onMenuClickHandler(navItem)} key={navItem.name} className={theme.menu.button}>
+                    <button onClick={() => onMenuClickHandler(navItem)} key={navItem.name} className={theme.button_a}>
                         {navItem.name}
                     </button>
                 ))}
                 {user?.uid === ADMIN_UID &&
                     adminNavigation.map((navItem: NavItem) => (
-                        <button onClick={() => onMenuClickHandler(navItem)} key={navItem.name} className={theme.menu.button}>
+                        <button onClick={() => onMenuClickHandler(navItem)} key={navItem.name} className={theme.button_a}>
                             {navItem.name}
                         </button>
                     ))}

@@ -8,6 +8,8 @@ export const useProject = (id: string) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
+    console.log(id);
+
     useEffect(() => {
         const fetchProject = async () => {
             try {

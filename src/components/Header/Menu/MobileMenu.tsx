@@ -8,10 +8,10 @@ import {
     BLOG_ROUTE,
     PROJECTS_ROUTE,
     SIGN_IN_ROUTE
-} from "../../utils/const";
-import {useAppSelector} from "../../hooks/storeHooks";
+} from "../../../utils/const";
+import {useAppSelector} from "../../../hooks/storeHooks";
 import {useNavigate} from "react-router-dom";
-import {useTheme} from "../../hooks/Theme/useThemeType";
+import useTheme from "../../../hooks/Theme/useThemeType";
 
 const ADMIN_UID = '0TiGUsGDH6d8QR5DJrMTAmdyTFg2';
 
@@ -96,37 +96,35 @@ const MobileMenu: FC<MobileMenuProps> = ({isDark, onThemeSwitchHandler, mobileMe
                         <nav className="flex flex-col space-y-4 px-4 py-6">
                             {baseNavigation.map((navItem: NavItem) => (
                                 <button onClick={() => onMenuClickHandler(navItem)} key={navItem.name}
-                                        className={theme.menu.button}>
+                                        className={theme.button_a}>
                                     {navItem.name}
                                 </button>
                             ))}
                             {user?.uid === ADMIN_UID &&
                                 adminNavigation.map((navItem: NavItem) => (
                                     <button onClick={() => onMenuClickHandler(navItem)} key={navItem.name}
-                                            className={theme.menu.button}>
+                                            className={theme.button_a}>
                                         {navItem.name}
                                     </button>
                                 ))}
                         </nav>
 
-                        <div className="flex justify-between items-center gap-2">
+                        <div className="flex justify-between items-center border-t pt-8 gap-2">
                             {!isDark
                                 ?
-                                <div className={`flex items-center justify-end gap-2`}>
-                                    <SunOutlined onClick={onThemeSwitchHandler}
-                                                 className={"text-amber-500 bg-white p-1 rounded-xl text-2xl"}/>
-                                    <h2 className={`text-xl text-gray-200 font-light`}>Light</h2>
+                                <div onClick={onThemeSwitchHandler} className={`flex items-center bg-white py-1 px-4 rounded-xl justify-end gap-2`}>
+                                    <SunOutlined className={"text-amber-500 text-2xl"}/>
+                                    <h2 className={`text-xl text-gray-600 `}>Light</h2>
                                 </div>
                                 :
-                                <div className={`flex items-center justify-end gap-2`}>
-                                    <MoonOutlined onClick={onThemeSwitchHandler}
-                                                  className={"text-indigo-600 bg-white p-1 rounded-xl text-2xl"}/>
-                                    <h2 className={`text-xl text-gray-200 font-light`}>Dark</h2>
+                                <div onClick={onThemeSwitchHandler} className={`flex items-center bg-white py-1 px-4 rounded-xl justify-end gap-2`}>
+                                    <MoonOutlined className={"text-indigo-600 text-2xl"}/>
+                                    <h2 className={`text-xl text-gray-600`}>Dark</h2>
                                 </div>
                             }
-                            <button onClick={onSignInHandler} className={`flex items-center justify-end hover:text-indigo-600`}>
-                                <h2 className={`text-xl ${theme.text_color} font-semibold`}>Log in</h2>
-                                <LoginOutlined className={`px-4  cursor-pointer ${theme.text_color} text-2xl`}/>
+                            <button onClick={onSignInHandler} className={`flex ${theme.button_a} items-center justify-end hover:text-indigo-600`}>
+                                <h2 className={`text-xl ${theme.button_a}`}>Log in</h2>
+                                <LoginOutlined className={`px-4  cursor-pointer ${theme.button_a}`}/>
                             </button>
                         </div>
                     </div>

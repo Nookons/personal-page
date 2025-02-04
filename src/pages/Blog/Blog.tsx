@@ -1,6 +1,6 @@
 import React from 'react';
 import PostList from "./PostList";
-import {useTheme} from "../../hooks/Theme/useThemeType";
+import useTheme from "../../hooks/Theme/useThemeType";
 
 const Blog = () => {
     const { theme, toggleTheme } = useTheme();  // Получаем тему и функцию для её переключения

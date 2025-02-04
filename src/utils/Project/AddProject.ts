@@ -10,6 +10,9 @@ export const addProjectAction = async (post_data: IDataProject) => {
         await setDoc(doc(db, "projects", project_id), {
             ...post_data,
             id: project_id,
+            likes_count: 0,
+            likes_users: [],
+            comments: [],
             date: dayjs().format("dddd, MMMM DD, YYYY [at] HH:mm:ss"),
             timeStamp: dayjs().valueOf(),
         });

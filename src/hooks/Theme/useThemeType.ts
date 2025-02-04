@@ -1,94 +1,58 @@
 import { useEffect, useState, useMemo } from 'react';
 import {IThemeType} from "../../types/Theme/main";
 
+const useTheme = () => {
+    const defaultTheme = useMemo<IThemeType>(() => ({
+        text_color: 'text-gray-800',
+        second_text_color: "text-gray-600",
+        bg_color: 'bg-white',
+        second_bg_color: "bg-gray-200",
+        button: "transition-all text-xl sm:text-sm text-gray-600 duration-300 cursor-pointer hover:text-gray-800 hover:border-indigo-600 hover:border-b",
+        button_a: "transition-all text-xl sm:text-sm text-gray-600 duration-300 cursor-pointer hover:text-gray-800 hover:border-indigo-600 hover:border-b",
+        second_button: "",
+        time_mark: "",
+        card_background: "bg-white",
+    }), []);
 
-type ThemeSource = 'system' | 'manual';
+    const darkTheme = useMemo<IThemeType>(() => ({
+        text_color: 'text-gray-200',
+        second_text_color: "text-indigo-200",
+        bg_color: 'bg-gray-900',
+        second_bg_color: "bg-gray-800",
+        button: "bg-gray-800 text-sm text-nowrap rounded py-1 border-gray-800 px-2 text-gray-200 border-2 transition hover:border-indigo-600 z-10",
+        button_a: "transition-all text-xl sm:text-sm text-gray-200 duration-300 cursor-pointer hover:text-indigo-200 hover:border-indigo-600 hover:border-b",
+        second_button: "",
+        time_mark: "text-xs text-gray-400",
+        card_background: "bg-gray-800 border-2 transition border-gray-800 hover:bg-gray-900 cursor-pointer hover:border-indigo-600 border",
+    }), []);
 
-const defaultTheme: IThemeType = {
-    text_color: 'text-gray-800',
-    bg_color: 'bg-white',
-    a: "",
-    card_background: "bg-white",
-    menu: {
-        mobile_menu: {
-            bg: "fixed inset-0 z-50 bg-black backdrop-blur-sm",
-            main_text: 'text-gray-900',
-            text: "text-gray-800",
-        },
-        container: "",
-        logo_text: "text-gray-800",
-        button: "transition-all text-gray-600 duration-300 cursor-pointer hover:text-gray-800 hover:border-indigo-600 hover:border-b",
-    },
-    card: {
-        main_text: "",
-        secondary_text: "",
-        time_text: "",
-        bg_color: ""
-    }
-};
-
-const darkTheme: IThemeType = {
-    text_color: 'text-white',
-    bg_color: 'bg-gray-900',
-    a: "",
-    card_background: "",
-    menu: {
-        mobile_menu: {
-            bg: "",
-            main_text: '',
-            text: "",
-        },
-        logo_text: "text-white",
-        container: "bg-gray-900/30",
-        button: "transition-all text-white duration-300 cursor-pointer hover:border-indigo-600 hover:border-b",
-    },
-    card: {
-        main_text: "",
-        secondary_text: "",
-        time_text: "",
-        bg_color: ""
-    }
-};
-
-export const useTheme = () => {
     const [theme, setTheme] = useState<IThemeType>(defaultTheme);
 
-    // Проверяем локальное хранилище и устанавливаем начальную тему
     useEffect(() => {
-        const storedTheme = localStorage.getItem('theme');
-        if (storedTheme === 'dark') {
-            setTheme(darkTheme);
-        } else {
-            setTheme(defaultTheme);
-        }
+        const stored = localStorage.getItem('theme');
+        setTheme(stored === 'dark' ? darkTheme : defaultTheme);
     }, []);
 
-    // Слушаем изменения в локальном хранилище
     useEffect(() => {
-        const handleStorageChange = () => {
-            const storedTheme = localStorage.getItem('theme');
-            if (storedTheme === 'dark') {
-                setTheme(darkTheme);
-            } else {
-                setTheme(defaultTheme);
-            }
+        const handler = () => {
+            const stored = localStorage.getItem('theme');
+            setTheme(stored === 'dark' ? darkTheme : defaultTheme);
         };
 
-        window.addEventListener('storage', handleStorageChange);
-
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-        };
+        window.addEventListener('themeChange', handler);
+        return () => window.removeEventListener('themeChange', handler);
     }, []);
 
     const toggleTheme = () => {
-        const newTheme = theme === darkTheme ? defaultTheme : darkTheme;
+        const isDark = theme.bg_color === darkTheme.bg_color;
+        const newTheme = isDark ? defaultTheme : darkTheme;
+
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        window.dispatchEvent(new CustomEvent('themeChange'));
         setTheme(newTheme);
-        localStorage.setItem('theme', newTheme === darkTheme ? 'dark' : 'light');
     };
 
-    return useMemo(() => ({
-        theme,
-        toggleTheme,
-    }), [theme]);
+    return { theme, toggleTheme };
 };
+
+export default useTheme;

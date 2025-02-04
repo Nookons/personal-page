@@ -2,18 +2,20 @@ import React, {useState} from 'react';
 import {getHighlightsDescription} from "../../../utils/Project/getHighlightsDescription";
 import {getHighlightsIcon} from "../../../utils/Project/getHighlightsIcon";
 import {ChevronDownIcon} from "@heroicons/react/16/solid";
+import useTheme from "../../../hooks/Theme/useThemeType";
 
 const MyHighlightElement = ({highlight}: {highlight: string}) => {
     const details = getHighlightsDescription(highlight);
     const icon = getHighlightsIcon(highlight)
+    const {theme} = useTheme();
 
     const [isFull, setIsFull] = useState(false);
 
     return (
-        <li onClick={() => setIsFull(!isFull)} className={`flex cursor-pointer p-2 transition rounded-2xl gap-x-3 ${isFull ? "bg-gradient-to-r to-100% from-indigo-50 to-white" : "bg-gradient-to-r to-25% from-indigo-50 to-white"}`}>
+        <li onClick={() => setIsFull(!isFull)} className={`flex ${theme.card_background} ${theme.second_text_color} cursor-pointer p-2 transition rounded-2xl gap-x-3`}>
             {icon}
             <span>
-                <strong className="font-semibold text-gray-900">
+                <strong className="font-semibold">
                     {highlight}
                 </strong>
                 <p className={`${isFull ? 'line-clamp-none' : 'line-clamp-1'}`}>

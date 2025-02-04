@@ -1,12 +1,12 @@
-import {ICardTheme} from "./ICardTheme";
-import {IMobileMenu} from "./MobileMenu";
-import {IMyMenu} from "./MyMenu";
 
 export type IThemeType = {
     text_color: string;
-    a: string;
+    second_text_color: string;
+    second_bg_color: string;
+    button: string;
+    button_a: string;
+    second_button: string;
     bg_color: string;
     card_background: string;
-    card: ICardTheme;
-    menu: IMyMenu;
+    time_mark: string;
 };

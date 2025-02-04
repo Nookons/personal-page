@@ -4,7 +4,7 @@ import { usePosts } from "../../hooks/usePosts";
 import { Alert, Empty, Skeleton } from "antd";
 import { IPost } from "../../types/Post/Post";
 import Post from "./Post";
-import {useTheme} from "../../hooks/Theme/useThemeType";
+import useTheme from "../../hooks/Theme/useThemeType";
 
 const PostList = () => {
     const { posts, loading, error } = usePosts();
@@ -42,7 +42,7 @@ const PostList = () => {
 
     return (
         <div
-            className={`${theme.bg_color} ${theme.text_color} mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-4 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-2`}
+            className={`mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-4 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-2`}
         >
             {reversed.map((post) => (
                 <div

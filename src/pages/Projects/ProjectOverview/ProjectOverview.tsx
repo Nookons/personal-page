@@ -6,13 +6,24 @@ import {RocketOutlined} from "@ant-design/icons";
 import MyHighlightElement from "./HighlightElement";
 import ProjectStats from "./ProjectStats";
 import ProjectReviews from "./ProjectReviews";
+import useTheme from "../../../hooks/Theme/useThemeType";
+import {useAppDispatch} from "../../../hooks/storeHooks";
+import {setProject} from "../../../store/reducers/Project";
 
 const ProjectOverview = () => {
+    const dispatch = useAppDispatch();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const id = params.get("id");
+    const id = params.get("projectId");
+    const {theme} = useTheme();
 
     const {project, loading, error} = useProject(id ? id : "");
+
+    useEffect(() => {
+        if (project) {
+            dispatch(setProject(project))
+        }
+    }, [project]);
 
 
     if (loading) {
@@ -20,11 +31,11 @@ const ProjectOverview = () => {
     }
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return <div className={`min-h-screen ${theme.bg_color} ${theme.text_color} py-24 px-4`}>Error: {error}</div>;
     }
 
     if (!project) {
-        return <div>No project found</div>;
+        return <div className={`min-h-screen ${theme.bg_color} ${theme.text_color} py-24 px-4`}><p>No project found</p></div>;
     }
 
     const onViewHandle = () => {
@@ -37,7 +48,7 @@ const ProjectOverview = () => {
     }
 
     return (
-        <div className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
+        <div className={`relative isolate overflow-hidden ${theme.bg_color} ${theme.text_color} px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0`}>
             <div
                 aria-hidden="true"
                 className="absolute inset-x-0 -top-2 -z-10 transform-gpu overflow-hidden blur-3xl s sm:-top-80"
@@ -61,10 +72,10 @@ const ProjectOverview = () => {
                             </div>
 
                             <p className="text-base/7 font-semibold text-indigo-600">{project.short_name}</p>
-                            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-pretty text-gray-800 sm:text-5xl">
+                            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-pretty  sm:text-5xl">
                                 {project.name}
                             </h1>
-                            <p className="mt-6 text-xl/8 text-gray-700">
+                            <p className="mt-6 text-xl/8 ">
                                 {/*Here some text can be add*/}
                             </p>
                         </div>
@@ -89,7 +100,7 @@ const ProjectOverview = () => {
                 <div
                     className="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                     <div className="lg:pr-4">
-                        <div className="max-w-xl text-base/7 text-gray-700 lg:max-w-lg">
+                        <div className="max-w-xl text-base/7 lg:max-w-lg">
                             <p>
                                 {project.description}
                             </p>

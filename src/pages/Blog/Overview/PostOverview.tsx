@@ -10,6 +10,7 @@ import {addReview, setPost} from "../../../store/reducers/Post";
 import {IPostReview} from "../../../types/Post/Post";
 import PostReview from "./PostReview";
 import PostStats from "./PostStats";
+import useTheme from "../../../hooks/Theme/useThemeType";
 
 
 const PostOverview = () => {
@@ -17,6 +18,7 @@ const PostOverview = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const id = params.get("postId");
+    const { theme, toggleTheme } = useTheme();  // Получаем тему и функцию для её переключения
 
     const user = useAppSelector(state => state.user.user)
 
@@ -67,7 +69,7 @@ const PostOverview = () => {
 
 
     return (
-        <div className={`grid min-h-screen grid-cols-1 lg:grid-cols-2`}>
+        <div className={`grid min-h-screen grid-cols-1 lg:grid-cols-2 ${theme.bg_color} ${theme.text_color}`}>
             <div
                 aria-hidden="true"
                 className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -90,10 +92,10 @@ const PostOverview = () => {
                     <>
                         <PostStats />
 
-                        <h1 className={`my-4 text-3xl font-semibold tracking-tight text-pretty text-gray-800  sm:text-5xl`}>
+                        <h1 className={`my-4 text-3xl font-semibold tracking-tight text-pretty sm:text-5xl`}>
                             {post?.title}
                         </h1>
-                        <p className={"text-base/7 my-8 text-gray-700"}>
+                        <p className={"text-base/7 my-8 "}>
                             {post?.description}
                         </p>
                     </>

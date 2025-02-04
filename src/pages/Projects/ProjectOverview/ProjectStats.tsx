@@ -5,33 +5,34 @@ import {message, Skeleton} from "antd";
 import {useAppDispatch, useAppSelector} from "../../../hooks/storeHooks";
 import {addPostLikeAction, removePostLikeAction} from "../../../utils/Post/AddLike";
 import {addLike, removeLike} from "../../../store/reducers/Post";
+import {addProjectLikeAction, removeProjectLikeAction} from "../../../utils/Project/addLike";
 
 const ProjectStats = () => {
     const dispatch = useAppDispatch();
     const user = useAppSelector(state => state.user.user)
-    const post = useAppSelector(state => state.post.post)
+    const project = useAppSelector(state => state.project.project)
 
     const [isLiked, setIsLiked] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        if (post && user) {
-            const isHave = post.likes_users.includes(user.uid)
+        if (project && user) {
+            const isHave = project.likes_users.includes(user.uid)
             setIsLiked(isHave)
         }
-    }, [post]);
+    }, [project]);
 
     const onLikeHandle = async () => {
         try {
-            if (post && post.id) {
+            if (project && project.id) {
                 if (!user) {
                     throw new Error("You not logged in!");
                 }
 
                 if (isLiked) {
                     setIsLoading(true);
-                    const id = post.id;
-                    const result = await removePostLikeAction({user, id, post})
+                    const id = project.id;
+                    const result = await addProjectLikeAction({user, id, project})
 
                     if (result) {
                         dispatch(removeLike(user))
@@ -40,8 +41,8 @@ const ProjectStats = () => {
                 }
 
                 setIsLoading(true);
-                const id = post.id;
-                const result = await addPostLikeAction({user, id, post})
+                const id = project.id;
+                const result = await removeProjectLikeAction({user, id, project})
 
                 if (result) {
                     dispatch(addLike(user))
@@ -69,10 +70,10 @@ const ProjectStats = () => {
                             }
                         </span>
                         <span className={"max-w-xl text-base/7 text-gray-500 lg:max-w-lg"}>
-                            {!post
+                            {!project
                                 ? <Skeleton.Button/>
                                 :
-                                <h6 className={"max-w-xl text-base/7 font-semibold text-gray-700 lg:max-w-lg"}>{post.likes.toLocaleString()}</h6>
+                                <h6 className={"max-w-xl text-base/7 font-semibold text-gray-700 lg:max-w-lg"}>{project.likes.toLocaleString()}</h6>
                             }
                         </span>
                     </Button>
@@ -85,11 +86,11 @@ const ProjectStats = () => {
                             <MessageOutlined/>
                         </span>
                         <span className={"max-w-xl text-base/7 text-gray-500 lg:max-w-lg"}>
-                            {!post
+                            {!project
                                 ? <Skeleton.Button/>
                                 :
                                 <h6 className={"max-w-xl text-base/7 font-semibold text-gray-700 lg:max-w-lg"}>
-                                    {post.comments.length.toLocaleString()}
+                                    {project.comments.length.toLocaleString()}
                                 </h6>
                             }
                         </span>

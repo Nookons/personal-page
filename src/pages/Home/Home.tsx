@@ -1,19 +1,14 @@
 import React, { useEffect } from 'react';
-import { useTheme } from '../../hooks/Theme/useThemeType'; // Импорт хука useTheme
 import ContactPopover from './ContactPopover';
+import useTheme from "../../hooks/Theme/useThemeType";
 
 const Home = () => {
-    const { theme, toggleTheme } = useTheme();  // Получаем тему и функцию для её переключения
+    const { theme, toggleTheme } = useTheme();
 
-    // Эффект для применения классов темы на странице
+    // Логируем конкретные поля темы
     useEffect(() => {
-        // Если тема dark, то добавляем класс 'dark' в <html> (для применения стилей)
-        if (theme.bg_color === 'bg-gray-900') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    }, [theme]); // Запускаем эффект при изменении темы
+        console.log('Theme updated - bg:', theme.bg_color, 'text:', theme.text_color);
+    }, [theme.bg_color, theme.text_color]); // Явные зависимости
 
     return (
         <div className={`${theme.bg_color} ${theme.text_color}`}>

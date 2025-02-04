@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 import { useAppDispatch } from "../../hooks/storeHooks";
 import { IUser } from "../../types/User";
 import { userEnter } from "../../store/reducers/User";
+import useTheme from "../../hooks/Theme/useThemeType";
 
 
 
@@ -23,6 +24,7 @@ interface UserData {
 const SignIn: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const {theme} = useTheme();  // Получаем тему и функцию для её переключения
 
     const [userData, setUserData] = useState<UserData>({
         email: "",
@@ -88,10 +90,10 @@ const SignIn: React.FC = () => {
     };
 
     return (
-        <div className="flex min-h-full flex-1 flex-col justify-center h-screen px-4 py-4 lg:px-8">
+        <div className={`flex ${theme.bg_color} ${theme.text_color} min-h-full flex-1 flex-col justify-center h-screen px-4 py-4 lg:px-8`}>
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <img alt="Nookon Web" src={logo} className="mx-auto h-10 w-auto" />
-                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight ">
                     Sign in to your account
                 </h2>
             </div>

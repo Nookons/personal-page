@@ -6,7 +6,7 @@ import {
 } from '../../utils/const';
 import ToTopButton from './ToTopButton';
 import MyMenu from "./Menu/MyMenu";
-import {useTheme} from "../../hooks/Theme/useThemeType";
+import useTheme from "../../hooks/Theme/useThemeType";
 
 
 const Home = () => {
@@ -38,13 +38,13 @@ const Home = () => {
             <ToTopButton isShowButton={isShowButton} />
             <header
                 id="Header"
-                className={`fixed flex  ${theme.menu.container} align-middle justify-between w-full px-8 py-4 z-50 backdrop-blur transition-all duration-300 ${isShowButton && 'shadow-lg'}`}
+                className={`fixed ${theme.text_color} flex align-middle justify-between w-full px-8 py-4 z-50 backdrop-blur transition-all duration-300 ${isShowButton && 'shadow-lg'}`}
             >
                 <div className="">
                     <button onClick={handleHomeClick} className="flex items-center gap-3 group" aria-label="Home">
                         <img alt="Nookon Web" src={logo}
                              className="h-8 w-auto transition-transform group-hover:rotate-12"/>
-                        <h3 className={`text-xl font-bold ${theme.menu.logo_text}`}>
+                        <h3 className={`text-xl font-bold`}>
                             Nookon Web
                         </h3>
                     </button>
