@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import {userCreateAccount} from "../../utils/User/SignUp";
 import {message} from "antd";
 import {useNavigate} from "react-router-dom";
-import {HOME_ROUTE} from "../../utils/const";
+import {HOME_ROUTE, SIGN_IN_ROUTE} from "../../utils/const";
 import {useAppDispatch} from "../../hooks/storeHooks";
 import {userEnter} from "../../store/reducers/User";
 
@@ -116,7 +116,7 @@ const SignUpForm = () => {
                 >
                     Create account
                 </button>
-                <button type="button" className="text-sm/6 font-semibold text-gray-900">
+                <button onClick={() => navigate(SIGN_IN_ROUTE)} type="button" className="text-sm/6 font-semibold text-gray-900">
                     Back to Sign In
                 </button>
             </div>

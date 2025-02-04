@@ -31,7 +31,7 @@ const solutions = [
 const ContactPopover = () => {
     return (
         <Popover className="relative flex justify-center ">
-            <Popover.Button className="inline-flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900 focus:outline-none focus:ring-0 md:focus:outline">
+            <Popover.Button className="inline-flex items-center gap-x-1 text-sm/6 font-semibold focus:outline-none focus:ring-0 md:focus:outline">
                 <span>Contacts with me</span>
                 <ChevronDownIcon aria-hidden="true" className="size-5" />
             </Popover.Button>

@@ -1,21 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {usePosts} from "../../hooks/usePost";
+import {usePosts} from "../../../hooks/usePost";
 import {useLocation} from "react-router-dom";
-import {LikeOutlined, LoadingOutlined, MessageOutlined} from "@ant-design/icons";
+import {LoadingOutlined} from "@ant-design/icons";
 import {message, Skeleton} from "antd";
-import MyInput from "../../components/MyInput/MyInput";
-import {useAppDispatch, useAppSelector} from "../../hooks/storeHooks";
-import {addPostReviewAction} from "../../utils/Post/AddPostReview";
+import MyInput from "../../../components/MyInput/MyInput";
+import {useAppDispatch, useAppSelector} from "../../../hooks/storeHooks";
+import {addPostReviewAction} from "../../../utils/Post/AddPostReview";
+import {addReview, setPost} from "../../../store/reducers/Post";
+import {IPostReview} from "../../../types/Post/Post";
 import PostReview from "./PostReview";
-import {addReview, setPost} from "../../store/reducers/Post";
-import {IPostReview} from "../../types/Post/Post";
 import PostStats from "./PostStats";
 
-const stats = [
-    {id: 1, name: 'Transactions every 24 hours', value: '44 million'},
-    {id: 2, name: 'Assets under holding', value: '$119 trillion'},
-    {id: 3, name: 'New users annually', value: '46,000'},
-]
 
 const PostOverview = () => {
     const dispatch = useAppDispatch();
@@ -70,8 +65,9 @@ const PostOverview = () => {
         }
     };
 
+
     return (
-        <div className={"grid min-h-screen grid-cols-1 lg:grid-cols-2"}>
+        <div className={`grid min-h-screen grid-cols-1 lg:grid-cols-2`}>
             <div
                 aria-hidden="true"
                 className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -93,7 +89,8 @@ const PostOverview = () => {
                     :
                     <>
                         <PostStats />
-                        <h1 className="my-4 text-3xl font-semibold tracking-tight text-pretty text-gray-800 sm:text-5xl">
+
+                        <h1 className={`my-4 text-3xl font-semibold tracking-tight text-pretty text-gray-800  sm:text-5xl`}>
                             {post?.title}
                         </h1>
                         <p className={"text-base/7 my-8 text-gray-700"}>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {IPost, IPostReview} from "../../types/Post/Post";
-import {useAppSelector} from "../../hooks/storeHooks";
+import {IPost, IPostReview} from "../../../types/Post/Post";
+import {useAppSelector} from "../../../hooks/storeHooks";
 import {Alert, Avatar} from "antd";
 
 const PostReview = () => {

@@ -17,7 +17,7 @@ import Blog from "./pages/Blog/Blog";
 import SignUpForm from "./pages/SignUp/SignUpForm";
 import AddProject from "./pages/AdminPanel/Project/AddProject";
 import AddPost from "./pages/AdminPanel/Post/AddPost";
-import PostOverview from "./pages/Blog/PostOverview";
+import PostOverview from "./pages/Blog/Overview/PostOverview";
 import About from "./pages/About/About";
 
 

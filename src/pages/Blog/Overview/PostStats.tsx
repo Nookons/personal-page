@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {HeartOutlined, LikeOutlined, LoadingOutlined, MessageOutlined} from "@ant-design/icons";
 import {message, Skeleton} from "antd";
-import {useAppDispatch, useAppSelector} from "../../hooks/storeHooks";
+import {useAppDispatch, useAppSelector} from "../../../hooks/storeHooks";
 import Button from "antd/es/button";
-import {addPostLikeAction, removePostLikeAction} from "../../utils/Post/AddLike";
-import {addLike, removeLike} from "../../store/reducers/Post";
+import {addPostLikeAction, removePostLikeAction} from "../../../utils/Post/AddLike";
+import {addLike, removeLike} from "../../../store/reducers/Post";
 
 const PostStats = () => {
     const dispatch = useAppDispatch();

@@ -9,7 +9,7 @@ const SignUpHeader = () => {
             <h2 className="my-4 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
                 Create new Profile
             </h2>
-            <p className="text-gray-800 w-full mb-4 bg-gray-100 p-2 rounded font-semibold">
+            <p className="text-gray-800 w-full mb-4 p-2 rounded">
                 We promise not to share your data with anyone, so please trust us to look after it. But, just so you know, anyone on the site can see this.
             </p>
         </div>

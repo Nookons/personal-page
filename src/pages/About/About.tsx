@@ -7,7 +7,7 @@ const About = () => {
     return (
         <div className="relative min-h-screen">
             <div
-                className="absolute inset-0 bg-gradient-to-r from-indigo-200 via-white to-green-200 opacity-20 animate-gradient-x"/>
+                className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-white to-green-600 opacity-20 animate-gradient-x"/>
 
             {/* Content */}
             <div className="relative z-10 py-24 px-4 max-w-screen-md mx-auto">

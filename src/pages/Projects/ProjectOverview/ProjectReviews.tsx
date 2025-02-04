@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Alert, Avatar, message, Skeleton} from "antd";
 import MyInput from "../../../components/MyInput/MyInput";
 import {LoadingOutlined} from "@ant-design/icons";
-import PostReview from "../../Blog/PostReview";
+import PostReview from "../../Blog/Overview/PostReview";
 import {useAppDispatch, useAppSelector} from "../../../hooks/storeHooks";
 import {IPostReview} from "../../../types/Post/Post";
 

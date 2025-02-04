@@ -1,10 +1,22 @@
-import React, {useEffect} from 'react';
-import ContactPopover from "./ContactPopover";
+import React, { useEffect } from 'react';
+import { useTheme } from '../../hooks/Theme/useThemeType'; // Импорт хука useTheme
+import ContactPopover from './ContactPopover';
 
 const Home = () => {
+    const { theme, toggleTheme } = useTheme();  // Получаем тему и функцию для её переключения
+
+    // Эффект для применения классов темы на странице
+    useEffect(() => {
+        // Если тема dark, то добавляем класс 'dark' в <html> (для применения стилей)
+        if (theme.bg_color === 'bg-gray-900') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }, [theme]); // Запускаем эффект при изменении темы
 
     return (
-        <div className="bg-white">
+        <div className={`${theme.bg_color} ${theme.text_color}`}>
             <div className="relative isolate px-6 pt-14 lg:px-8">
                 <div
                     aria-hidden="true"
@@ -21,16 +33,17 @@ const Home = () => {
                 <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
                     <div className="sm:mb-8 sm:flex sm:justify-center">
                         <div
-                            className="relative mb-8 rounded-full px-3 py-1 text-sm/6 text-gray-800 ring-0 ring-gray-900/10 hover:ring-gray-900/20 sm:ring-1 sm:hover:ring-1">
-                            <ContactPopover/>
+                            className="relative mb-8 rounded-full px-3 py-1 text-sm/6  ring-0 ring-gray-900/10 hover:ring-gray-900/20 sm:ring-1 sm:hover:ring-1"
+                        >
+                            <ContactPopover />
                         </div>
                     </div>
 
                     <div className="text-center">
-                        <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
+                        <h1 className="text-balance text-5xl font-semibold tracking-tight  sm:text-7xl">
                             Welcome, to personal page!
                         </h1>
-                        <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
+                        <p className="mt-8 text-pretty text-lg font-medium sm:text-xl/8">
                             Hi there! I'm Kolomiiets Dmytro, and I've been lucky enough to work in software development for over three years now.
                         </p>
                         <div className="mt-10 flex items-center justify-center gap-x-6">
@@ -40,7 +53,7 @@ const Home = () => {
                             >
                                 Get Order
                             </a>
-                            <a href="#" className="text-sm/6 font-semibold text-gray-900">
+                            <a href="#" className="text-sm/6 font-semibold ">
                                 Learn more <span aria-hidden="true">→</span>
                             </a>
                         </div>
