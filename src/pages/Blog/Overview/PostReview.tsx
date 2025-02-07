@@ -5,19 +5,27 @@ import {Alert, Avatar} from "antd";
 import useTheme from "../../../hooks/Theme/useThemeType";
 
 const PostReview = () => {
-    const post = useAppSelector(state => state.post.post)
+    const project = useAppSelector(state => state.project.project)
     const { theme, toggleTheme } = useTheme();  // Получаем тему и функцию для её переключения
 
     const [reversed_reviews, setReversed_reviews] = useState<IPostReview[]>([]);
 
     useEffect(() => {
-        if (post) {
-            setReversed_reviews([...post.comments].reverse())
+        if (project) {
+            setReversed_reviews([...project.comments].reverse())
         }
-    }, [post]);
+    }, [project]);
 
-    if (!post) {
+    if (!project) {
         return <Alert message="Ups... Something went wrong" banner/>
+    }
+
+    if (project.comments.length <= 0) {
+        return (
+            <div className={`${theme.second_bg_color} ${theme.second_text_color} p-2 mt-4 rounded`}>
+                <h2>Will be first who leave comment here...</h2>
+            </div>
+        )
     }
 
     return (

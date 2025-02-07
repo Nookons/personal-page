@@ -9,6 +9,8 @@ import ProjectReviews from "./ProjectReviews";
 import useTheme from "../../../hooks/Theme/useThemeType";
 import {useAppDispatch} from "../../../hooks/storeHooks";
 import {setProject} from "../../../store/reducers/Project";
+import CommentInput from "../../../components/Comments/CommentInput";
+import CommentsDisplay from "../../../components/Comments/CommentsDisplay";
 
 const ProjectOverview = () => {
     const dispatch = useAppDispatch();
@@ -36,6 +38,10 @@ const ProjectOverview = () => {
 
     if (!project) {
         return <div className={`min-h-screen ${theme.bg_color} ${theme.text_color} py-24 px-4`}><p>No project found</p></div>;
+    }
+
+    if (!id) {
+        return <div className={`min-h-screen ${theme.bg_color} ${theme.text_color} py-24 px-4`}><p>No project id</p></div>;
     }
 
     const onViewHandle = () => {
@@ -122,7 +128,8 @@ const ProjectOverview = () => {
                             </p>
                         </div>
                         <div className={"mt-8"}>
-                            <ProjectReviews/>
+                            <CommentInput label={"Add you review"} name={"projects"} id={id} />
+                            <CommentsDisplay name={"project"} />
                         </div>
                     </div>
                 </div>

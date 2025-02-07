@@ -8,7 +8,7 @@ import {IPostReview} from "../../../types/Post/Post";
 
 const ProjectReviews = () => {
     const user = useAppSelector(state => state.user.user)
-    const post = useAppSelector(state => state.post.post)
+    const project = useAppSelector(state => state.project.project)
 
     const [reversed_reviews, setReversed_reviews] = useState<IPostReview[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -18,12 +18,12 @@ const ProjectReviews = () => {
     });
 
     useEffect(() => {
-        if (post) {
-            setReversed_reviews([...post.comments].reverse())
+        if (project) {
+            setReversed_reviews([...project.comments].reverse())
         }
-    }, [post]);
+    }, [project]);
 
-    if (!post) {
+    if (!project) {
         return <Alert message="Ups... Something went wrong" banner/>
     }
 
@@ -58,7 +58,7 @@ const ProjectReviews = () => {
                     </button>
                 </div>
 
-                {post && <PostReview />}
+                {project && <PostReview />}
             </div>
         </>
     );
