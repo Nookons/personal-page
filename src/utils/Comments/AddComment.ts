@@ -2,15 +2,16 @@ import {arrayUnion, doc, updateDoc} from "firebase/firestore";
 import {db} from "../../firebase";
 import dayjs from "dayjs";
 import {IUser} from "../../types/User";
+import {IPostReview} from "../../types/Post/Post";
 
 interface IReviewLocal {
     body: string;
 }
 
-export const addCommentAction = async (name: string, review: IReviewLocal, id: string, user: IUser) => {
+export const addCommentAction = async (type: string, review: IReviewLocal, id: string, user: IUser) => {
     try {
         const review_id = dayjs().valueOf().toString();
-        const docRef = doc(db, name, id)
+        const docRef = doc(db, type, id)
 
         const comment_body = {
             ...review,
@@ -24,7 +25,7 @@ export const addCommentAction = async (name: string, review: IReviewLocal, id: s
         await updateDoc(docRef, {
             comments: arrayUnion(comment_body)
         });
-        return comment_body;
+        return comment_body as IPostReview;
 
     } catch (error) {
         return error;

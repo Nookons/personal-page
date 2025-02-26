@@ -1,16 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {usePosts} from "../../../hooks/usePost";
 import {useLocation} from "react-router-dom";
-import {LoadingOutlined} from "@ant-design/icons";
-import {message, Skeleton} from "antd";
-import MyInput from "../../../components/MyInput/MyInput";
+import {Skeleton} from "antd";
 import {useAppDispatch, useAppSelector} from "../../../hooks/storeHooks";
-import {addPostReviewAction} from "../../../utils/Post/AddPostReview";
-import {addReview, setPost} from "../../../store/reducers/Post";
-import {IPostReview} from "../../../types/Post/Post";
-import PostReview from "./PostReview";
+import {setPost} from "../../../store/reducers/Post";
 import PostStats from "./PostStats";
 import useTheme from "../../../hooks/Theme/useThemeType";
+import PostCategory from "./PostCategory";
+import ReviewScreen from "../../../components/ReviewScreen/ReviewScreen";
+import ReviewInput from "../../../components/ReviewInput/ReviewInput";
 
 
 const PostOverview = () => {
@@ -20,8 +18,6 @@ const PostOverview = () => {
     const id = params.get("postId");
     const { theme, toggleTheme } = useTheme();  // Получаем тему и функцию для её переключения
 
-    const user = useAppSelector(state => state.user.user)
-
     const {post, loading, error} = usePosts(id ? id : "")
 
     useEffect(() => {
@@ -30,43 +26,9 @@ const PostOverview = () => {
         }
     }, [post]);
 
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    const [review, setReview] = useState<any>({
-        body: ""
-    });
-
-    const onAddReviewHandle = async () => {
-        try {
-            if (!user) {
-                throw new Error("You must be logged in to add a review");
-            }
-            if (review.body.trim().length < 3) {
-                throw new Error("Your review must have a minimum of 3 characters");
-            }
-            if (!id) {
-                throw new Error("Invalid post ID");
-            }
-
-            setIsLoading(true);
-            const result = await addPostReviewAction({ user, review, id });
-
-            if (!result) {
-                throw new Error("Failed to add review");
-            }
-
-            dispatch(addReview(result as IPostReview))
-            setReview((prev: { body: string }) => ({ ...prev, body: "" }));
-            message.success("Review added successfully!");
-
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : String(error);
-            message.error(errorMessage);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
+    if (!id) {
+        return <div className={`min-h-screen ${theme.bg_color} ${theme.text_color} py-24 px-4`}><p>No project id</p></div>;
+    }
 
     return (
         <div className={`grid min-h-screen grid-cols-1 lg:grid-cols-2 ${theme.bg_color} ${theme.text_color}`}>
@@ -84,43 +46,28 @@ const PostOverview = () => {
             </div>
 
             <div
-                className="relative max-w-screen-sm m-auto  isolate overflow-hidden px-6 pt-24 sm:py-32 lg:overflow-visible lg:px-0"
+                className="relative w-full max-w-screen-sm m-auto  isolate overflow-hidden px-6 pt-24 sm:py-32 lg:overflow-visible lg:px-0"
             >
                 {loading
                     ? <><Skeleton className={"my-4"}/> <Skeleton className={"my-4"}/></>
                     :
                     <>
+                        <PostCategory />
                         <PostStats />
 
                         <h1 className={`my-4 text-3xl font-semibold tracking-tight text-pretty sm:text-5xl`}>
                             {post?.title}
                         </h1>
-                        <p className={"text-base/7 my-8 "}>
+                        <p className={"text-base/7 my-4 "}>
                             {post?.description}
                         </p>
                     </>
                 }
             </div>
 
-            <div className={"relative mt-8 px-6 pb-8 lg:py-24"}>
-                <div className={"relative"}>
-                    <MyInput
-                        label={"Add your comment"}
-                        type={"textarea"}
-                        name={'body'}
-                        value={review}
-                        change={setReview}
-                    />
-                    <button
-                        onClick={onAddReviewHandle}
-                        disabled={isLoading}
-                        className={`${isLoading ? "bg-gray-400" : "bg-indigo-600 "} text-white text-sm py-1 px-2 absolute bottom-2 left-2 rounded`}
-                    >
-                       {isLoading ? <span><LoadingOutlined className={"mr-2"} />Posting...</span> : "Post"}
-                    </button>
-                </div>
-
-                {post && <PostReview />}
+            <div className={"relative mt-2 px-6 pb-8 lg:py-24"}>
+                <ReviewInput  type={'posts'} id={id}/>
+                {post && <ReviewScreen data={post.comments} />}
             </div>
         </div>
     );

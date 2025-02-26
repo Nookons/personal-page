@@ -5,12 +5,11 @@ import {Skeleton} from "antd";
 import {RocketOutlined} from "@ant-design/icons";
 import MyHighlightElement from "./HighlightElement";
 import ProjectStats from "./ProjectStats";
-import ProjectReviews from "./ProjectReviews";
 import useTheme from "../../../hooks/Theme/useThemeType";
 import {useAppDispatch} from "../../../hooks/storeHooks";
 import {setProject} from "../../../store/reducers/Project";
-import CommentInput from "../../../components/Comments/CommentInput";
-import CommentsDisplay from "../../../components/Comments/CommentsDisplay";
+import ReviewScreen from "../../../components/ReviewScreen/ReviewScreen";
+import ReviewInput from "../../../components/ReviewInput/ReviewInput";
 
 const ProjectOverview = () => {
     const dispatch = useAppDispatch();
@@ -26,6 +25,10 @@ const ProjectOverview = () => {
             dispatch(setProject(project))
         }
     }, [project]);
+
+    useEffect(() => {
+        console.log(project?.comments)
+    }, [project?.comments, project]);
 
 
     if (loading) {
@@ -128,8 +131,8 @@ const ProjectOverview = () => {
                             </p>
                         </div>
                         <div className={"mt-8"}>
-                            <CommentInput label={"Add you review"} name={"projects"} id={id} />
-                            <CommentsDisplay name={"project"} />
+                            <ReviewInput type={"projects"} id={id}/>
+                            <ReviewScreen data={project.comments} />
                         </div>
                     </div>
                 </div>

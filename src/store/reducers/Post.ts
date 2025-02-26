@@ -34,14 +34,14 @@ const postSlice = createSlice({
         },
 
         // Добавление комментария
-        addReview: (state, action: PayloadAction<IPostReview>) => {
+        addReviewPost: (state, action: PayloadAction<IPostReview>) => {
             if (state.post) {
                 state.post.comments.push(action.payload);
             }
         },
 
         // Удаление комментария по ID
-        deleteComment: (state, action: PayloadAction<string>) => {
+        deleteCommentPost: (state, action: PayloadAction<string>) => {
             if (state.post) {
                 state.post.comments = state.post.comments.filter(
                     comment => comment.id !== action.payload
@@ -64,8 +64,8 @@ const postSlice = createSlice({
 export const {
     addLike,
     removeLike,
-    addReview,
-    deleteComment,
+    addReviewPost,
+    deleteCommentPost,
     setPost,
     clearPost
 } = postSlice.actions;

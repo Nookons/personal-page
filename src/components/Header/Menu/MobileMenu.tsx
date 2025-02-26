@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Dialog} from '@headlessui/react';
-import {LoginOutlined, MoonOutlined, SunOutlined} from "@ant-design/icons";
+import {LoginOutlined, MoonOutlined, SunOutlined, UserOutlined} from "@ant-design/icons";
 import {
     ABOUT_ROUTE,
     ADD_POST_ROUTE,
@@ -12,6 +12,7 @@ import {
 import {useAppSelector} from "../../../hooks/storeHooks";
 import {useNavigate} from "react-router-dom";
 import useTheme from "../../../hooks/Theme/useThemeType";
+import {message} from "antd";
 
 const ADMIN_UID = '0TiGUsGDH6d8QR5DJrMTAmdyTFg2';
 
@@ -53,6 +54,9 @@ const MobileMenu: FC<MobileMenuProps> = ({isDark, onThemeSwitchHandler, mobileMe
     const onSignInHandler = () => {
         navigate(SIGN_IN_ROUTE);
         setMobileMenuOpen(false);
+    }
+    const onProfileHandle = () => {
+        message.info("That options temporary don't available")
     }
 
     return (
@@ -122,10 +126,17 @@ const MobileMenu: FC<MobileMenuProps> = ({isDark, onThemeSwitchHandler, mobileMe
                                     <h2 className={`text-xl text-gray-600`}>Dark</h2>
                                 </div>
                             }
-                            <button onClick={onSignInHandler} className={`flex ${theme.button_a} items-center justify-end hover:text-indigo-600`}>
-                                <h2 className={`text-xl ${theme.button_a}`}>Log in</h2>
-                                <LoginOutlined className={`px-4  cursor-pointer ${theme.button_a}`}/>
-                            </button>
+                            {!user
+                                ? <button onClick={onSignInHandler}
+                                          className={`flex ${theme.button_a} items-center justify-end hover:text-indigo-600`}>
+                                        <h2 className={`text-xl ${theme.button_a}`}>Log in</h2>
+                                        <LoginOutlined className={`px-4  cursor-pointer ${theme.button_a}`}/>
+                                    </button>
+                                : <button onClick={onProfileHandle}
+                                              className={`flex ${theme.button_a} items-center justify-end hover:text-indigo-600`}>
+                                        <UserOutlined className={`mr-2 text-xl border p-2 rounded-xl`} />
+                                    </button>
+                            }
                         </div>
                     </div>
                 </div>

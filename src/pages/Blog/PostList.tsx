@@ -9,7 +9,6 @@ import useTheme from "../../hooks/Theme/useThemeType";
 const PostList = () => {
     const { posts, loading, error } = usePosts();
     const [reversed, setReversed] = useState<IPost[]>([]);
-    const { theme, toggleTheme } = useTheme();  // Получаем тему и функцию для её переключения
 
     useEffect(() => {
         if (posts) {

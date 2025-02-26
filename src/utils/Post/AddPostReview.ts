@@ -3,7 +3,6 @@ import {db} from "../../firebase";
 import dayjs from "dayjs";
 import {IUser} from "../../types/User";
 import {IPostReview} from "../../types/Post/Post";
-import {addReview} from "../../store/reducers/Post";
 
 export const addPostReviewAction = async ({user, review, id}: {user: IUser, review: IPostReview, id: string}) => {
     try {

@@ -72,7 +72,7 @@ const SignIn: React.FC = () => {
                 // Успешный вход в систему
                 message.success("Successfully signed in!");
                 dispatch(userEnter(snap)); // Сохраняем данные пользователя в store
-                navigate(HOME_ROUTE); // Перенаправляем на главную страницу
+                window.history.back();
             } else {
                 message.warning("No associated data found for the user.");
             }

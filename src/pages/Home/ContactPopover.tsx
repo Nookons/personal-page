@@ -11,7 +11,7 @@ const solutions = [
     {
         name: 'Telegram',
         description: 'Best way to connect with me',
-        href: 'https://t.me/nookon',
+        href: 'https://t.me/nookon_bot',
         icon: telegram
     },
     {
@@ -19,12 +19,6 @@ const solutions = [
         description: 'About questions to adds',
         href: '#',
         icon: instagram
-    },
-    {
-        name: 'Whats App',
-        description: 'Business chat',
-        href: '#',
-        icon: whatsapp
     },
 ];
 

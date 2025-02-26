@@ -1,24 +1,25 @@
-import React, {useEffect, useState} from 'react';
-import {IPost, IPostReview} from "../../../types/Post/Post";
-import {useAppSelector} from "../../../hooks/storeHooks";
+import React, {FC, useEffect, useState} from 'react';
+import {IPostReview} from "../../types/Post/Post";
+import {useAppSelector} from "../../hooks/storeHooks";
+import useTheme from "../../hooks/Theme/useThemeType";
 import {Alert, Avatar} from "antd";
-import useTheme from "../../../hooks/Theme/useThemeType";
-import NoComments from "../../../components/NoComments/NoComments";
+import NoComments from "../NoComments/NoComments";
 
-const PostReview = () => {
-    const user = useAppSelector(state => state.user.user)
-    const post = useAppSelector(state => state.post.post)
+interface ReviewScreenProps {
+    data: IPostReview[],
+}
+
+const ReviewScreen:FC<ReviewScreenProps> = ({data}) => {
     const { theme, toggleTheme } = useTheme();  // Получаем тему и функцию для её переключения
-
     const [reversed_reviews, setReversed_reviews] = useState<IPostReview[]>([]);
 
     useEffect(() => {
-        if (post) {
-            setReversed_reviews([...post.comments].reverse())
+        if (data.length) {
+            setReversed_reviews([...data].reverse())
         }
-    }, [post]);
+    }, [data]);
 
-    if (!post) {
+    if (!data) {
         return <Alert message="Ups... Something went wrong" banner/>
     }
 
@@ -58,4 +59,4 @@ const PostReview = () => {
     );
 };
 
-export default PostReview;
+export default ReviewScreen;

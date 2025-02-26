@@ -78,7 +78,8 @@ const MyMenu = () => {
                 ))}
                 {user?.uid === ADMIN_UID &&
                     adminNavigation.map((navItem: NavItem) => (
-                        <button onClick={() => onMenuClickHandler(navItem)} key={navItem.name} className={theme.button_a}>
+                        <button onClick={() => onMenuClickHandler(navItem)} key={navItem.name}
+                                className={theme.button_a}>
                             {navItem.name}
                         </button>
                     ))}
@@ -100,10 +101,16 @@ const MyMenu = () => {
             {/* Переключатель темы */}
             <div className="hidden items-center gap-2 sm:flex">
                 {!isDark
-                    ? <SunOutlined onClick={onThemeSwitchHandler} className={"text-amber-500 bg-white p-1 rounded-xl text-2xl"}/>
-                    : <MoonOutlined onClick={onThemeSwitchHandler} className={"text-indigo-600 bg-white p-1 rounded-xl text-2xl"}/>
+                    ? <SunOutlined onClick={onThemeSwitchHandler}
+                                   className={"text-amber-500 bg-white p-1 rounded-xl text-2xl"}/>
+                    : <MoonOutlined onClick={onThemeSwitchHandler}
+                                    className={"text-indigo-600 bg-white p-1 rounded-xl text-2xl"}/>
                 }
-                <LoginOutlined onClick={() => navigate(SIGN_IN_ROUTE)} className={`px-4 text-gray-800 cursor-pointer text-xl hover:text-indigo-600`}/>
+                {!user
+                    ? <LoginOutlined onClick={() => navigate(SIGN_IN_ROUTE)}
+                                     className={`px-4 text-gray-800 cursor-pointer text-xl hover:text-indigo-600`}/>
+                    : <div>Profile</div>
+                }
             </div>
         </div>
     );

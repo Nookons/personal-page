@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 import {HOME_ROUTE, SIGN_IN_ROUTE} from "../../utils/const";
 import {useAppDispatch} from "../../hooks/storeHooks";
 import {userEnter} from "../../store/reducers/User";
+import useTheme from "../../hooks/Theme/useThemeType";
 
 export interface ISignUp {
     email: string;
@@ -22,6 +23,8 @@ export interface ISignUp {
 const SignUpForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+
+    const {theme} = useTheme();
 
     const [form_data, setForm_data] = useState<ISignUp>({
         email: "",
@@ -63,7 +66,7 @@ const SignUpForm = () => {
 
 
     return (
-        <div className="min-h-screen py-24 px-4 max-w-lg m-auto">
+        <div className={`min-h-screen py-24 px-4 max-w-lg m-auto ${theme.bg_color} ${theme.text_color}`}>
             <SignUpHeader />
             <div className={"flex flex-col gap-4"}>
                 <MyInput
